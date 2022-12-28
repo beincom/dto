@@ -1,9 +1,10 @@
 {
   "name": "@beincom/dto",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "Share dto for all projects of Beincom",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -11,7 +12,7 @@
     "beincom",
     "dto"
   ],
-  "author": "TrongHM",
+  "author": "TrongHM <minhtrong@evol.vn>",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.11.7",
