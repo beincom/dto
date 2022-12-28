@@ -1,4 +1,22 @@
-import { STAFF_ROLE } from './staff-role.dto';
+export enum USER_STAFF_ROLE {
+  SUPER_ADMIN,
+  STAFF,
+  NULL,
+}
+
+export enum USER_GENDER {
+  MALE,
+  FEMALE,
+  OTHERS,
+  NULL,
+}
+
+export enum USER_RELATION_SHIP_STATUS {
+  SINGLE,
+  IN_A_RELATIONSHIP,
+  MARRIED,
+  NULL,
+}
 
 export class UserDto {
   id: string;
@@ -8,7 +26,7 @@ export class UserDto {
   avatar: string;
   chatId: string;
 
-  beinStaffRole: STAFF_ROLE;
+  beinStaffRole: USER_STAFF_ROLE;
   countryCode: string;
   country: string;
   city: string;
@@ -16,10 +34,10 @@ export class UserDto {
   backgroundImgUrl: string;
   birthday: Date;
   description: string;
-  gender: any;
+  gender: USER_GENDER;
   language: string[];
   phone: string;
-  relationshipStatus: any;
+  relationshipStatus: USER_RELATION_SHIP_STATUS;
 
   createdAt: Date;
   updatedAt: Date;
