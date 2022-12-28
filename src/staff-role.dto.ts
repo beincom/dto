@@ -1,4 +1,4 @@
-export enum BeinStaffRole {
+export enum STAFF_ROLE {
   SUPER_ADMIN = 'SUPER_ADMIN',
   STAFF = 'STAFF',
 }

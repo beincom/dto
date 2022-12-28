@@ -1,4 +1,4 @@
-import { BeinStaffRole } from './staff-role.dto';
+import { STAFF_ROLE } from './staff-role.dto';
 
 export class UserDto {
   id: string;
@@ -8,7 +8,7 @@ export class UserDto {
   avatar: string;
   chatId: string;
 
-  beinStaffRole: BeinStaffRole;
+  beinStaffRole: STAFF_ROLE;
   countryCode: string;
   country: string;
   city: string;
