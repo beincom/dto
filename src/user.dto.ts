@@ -1,21 +1,19 @@
 export enum USER_STAFF_ROLE {
-  SUPER_ADMIN,
-  STAFF,
-  NULL,
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  STAFF = 'STAFF',
 }
 
 export enum USER_GENDER {
-  MALE,
-  FEMALE,
-  OTHERS,
-  NULL,
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHERS = 'OTHERS',
 }
 
-export enum USER_RELATION_SHIP_STATUS {
-  SINGLE,
-  IN_A_RELATIONSHIP,
-  MARRIED,
-  NULL,
+export enum USER_RELATIONSHIP_STATUS {
+  SINGLE = 'SINGLE',
+  IN_A_RELATIONSHIP = 'IN_A_RELATIONSHIP',
+  ENGAGED = 'ENGAGED',
+  MARRIED = 'MARRIED',
 }
 
 export class UserDto {
@@ -37,7 +35,7 @@ export class UserDto {
   gender: USER_GENDER;
   language: string[];
   phone: string;
-  relationshipStatus: USER_RELATION_SHIP_STATUS;
+  relationshipStatus: USER_RELATIONSHIP_STATUS;
 
   createdAt: Date;
   updatedAt: Date;
