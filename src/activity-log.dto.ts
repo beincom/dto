@@ -22,6 +22,10 @@ export class Actor {
   fullname: string;
 }
 
+export class ChangeSummary {
+  [propName: string]: { old: string | Object; new: string | Object };
+}
+
 /**
  * The DTO contract for activity log item.
  * 
@@ -51,6 +55,12 @@ export class ActivityLogItem {
    */
   currentState: Object;
 
+  /** 
+   * OPTIONAL: The detail changes of the activity log event
+   * 
+   * Only use this when producer-service cannot share the full states of the changed entity (`originalState`/`currentState`)
+   */
+  changesSummary?: ChangeSummary;
 }
 
 export const KAFKA_TOPIC_NAME = 'activity_log_created';
