@@ -36,6 +36,7 @@ export class UserDto {
   language: string[];
   phone: string;
   relationshipStatus: USER_RELATIONSHIP_STATUS;
+  isDeactivated: boolean;
 
   createdAt: Date;
   updatedAt: Date;
