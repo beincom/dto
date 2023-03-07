@@ -42,3 +42,14 @@ export class UserDto {
   updatedAt: Date;
   deletedAt?: Date;
 }
+
+export interface SharedUserDto {
+    id: string;
+    username: string;
+    fullname: string;
+    avatar: string;
+    email: string;
+    isDeactivated: boolean;
+    groups: string[];
+}
+export declare const SHARED_USER_KEY_PREFIX = "SU";
