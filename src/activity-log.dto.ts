@@ -22,7 +22,7 @@ export type UserLogDto = {
   id: string;
   username: string;
   fullname: string;
-  avatarUrl: string;
+  avatar: string;
 };
 
 export class PropsChanged {
