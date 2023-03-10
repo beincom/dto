@@ -87,7 +87,7 @@ export type StateChangedOfGroup = StateChanged & {
 };
 
 export type LogPayload<T> = {
-  usecase: ACTIVITY_LOG_USECASES;
+  useCase: ACTIVITY_LOG_USECASES;
   actor: UserLogDto;
   communityId: string;
   eventTime: Date;
@@ -101,7 +101,7 @@ export type LogPayload<T> = {
  * which will be consumed by activity-log-service afterwards
  */
 export abstract class ActivityLogItem<T> {
-  protected abstract readonly usecase: ACTIVITY_LOG_USECASES;
+  protected abstract readonly useCase: ACTIVITY_LOG_USECASES;
   private _eventTime = new Date();
 
   protected constructor(
@@ -112,7 +112,7 @@ export abstract class ActivityLogItem<T> {
 
   public toObject(): LogPayload<T> {
     return {
-      usecase: this.usecase,
+      useCase: this.useCase,
       actor: this.actor,
       communityId: this.communityId,
       eventTime: this._eventTime,
@@ -126,7 +126,7 @@ export abstract class ActivityLogItem<T> {
 }
 
 export class AddMemberToCommunityUC extends ActivityLogItem<UsersWithCommunityData> {
-  readonly usecase = ACTIVITY_LOG_USECASES.ADD_MEMBER_TO_COMMUNITY;
+  readonly useCase = ACTIVITY_LOG_USECASES.ADD_MEMBER_TO_COMMUNITY;
 
   constructor(actor: UserLogDto, communityId: string, props: UsersWithCommunityData) {
     super(actor, communityId, props);
@@ -134,7 +134,7 @@ export class AddMemberToCommunityUC extends ActivityLogItem<UsersWithCommunityDa
 }
 
 export class AddMemberToGroupUC extends ActivityLogItem<UsersWithGroupsData> {
-  readonly usecase = ACTIVITY_LOG_USECASES.ADD_MEMBER_TO_GROUP;
+  readonly useCase = ACTIVITY_LOG_USECASES.ADD_MEMBER_TO_GROUP;
 
   constructor(actor: UserLogDto, communityId: string, props: UsersWithGroupsData) {
     super(actor, communityId, props);
@@ -142,7 +142,7 @@ export class AddMemberToGroupUC extends ActivityLogItem<UsersWithGroupsData> {
 }
 
 export class UpdateGroupProfileUC extends ActivityLogItem<StateChangedOfGroup> {
-  readonly usecase = ACTIVITY_LOG_USECASES.UPDATE_GROUP_PROFILE;
+  readonly useCase = ACTIVITY_LOG_USECASES.UPDATE_GROUP_PROFILE;
 
   constructor(actor: UserLogDto, communityId: string, props: StateChangedOfGroup) {
     super(actor, communityId, props);
