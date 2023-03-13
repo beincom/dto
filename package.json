@@ -1,6 +1,6 @@
 {
   "name": "@beincom/dto",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "description": "Share dto for all projects of Beincom",
   "main": "./dist/index.js",
   "scripts": {

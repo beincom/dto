@@ -47,6 +47,14 @@ export type GroupLogDto = {
   chatId: string;
 };
 
+export type GroupsObject = {
+  groups: GroupLogDto[];
+};
+
+export type CommunityObject = {
+  community: CommunityLogDto;
+};
+
 export type UsersWithCommunityData = {
   users: UserLogDto[];
   community: CommunityLogDto;
@@ -55,6 +63,26 @@ export type UsersWithCommunityData = {
 export type UsersWithGroupsData = {
   users: UserLogDto[];
   groups: GroupLogDto[];
+};
+
+export type UsersWithGroupData = {
+  users: UserLogDto[];
+  group: GroupLogDto;
+};
+
+export type JoinGroupAsAdminData = {
+  groupsAsMember: GroupLogDto[];
+  groupsAsAdmin: GroupLogDto[];
+};
+
+export type ApproveJoinRequestData = {
+  users: UserLogDto[];
+  targetGroups: GroupLogDto[];
+
+  /**
+   *  Can be [] when approving JR to join community
+   */
+  outerGroups: GroupLogDto[];
 };
 
 type StateChanged = {
@@ -84,6 +112,10 @@ type StateChanged = {
 
 export type StateChangedOfGroup = StateChanged & {
   group: GroupLogDto;
+};
+
+export type GroupAdminStatusChangedData = StateChangedOfGroup & {
+  users: UserLogDto[];
 };
 
 export type LogPayload<T> = {
@@ -145,6 +177,78 @@ export class UpdateGroupProfileUC extends ActivityLogItem<StateChangedOfGroup> {
   readonly useCase = ACTIVITY_LOG_USECASES.UPDATE_GROUP_PROFILE;
 
   constructor(actor: UserLogDto, communityId: string, props: StateChangedOfGroup) {
+    super(actor, communityId, props);
+  }
+}
+
+export class JoinCommunityAsMemberUC extends ActivityLogItem<CommunityObject> {
+  readonly useCase = ACTIVITY_LOG_USECASES.JOIN_COMMUNITY_AS_MEMBER;
+
+  constructor(actor: UserLogDto, communityId: string, props: CommunityObject) {
+    super(actor, communityId, props);
+  }
+}
+
+export class JoinGroupAsMemberUC extends ActivityLogItem<GroupsObject> {
+  readonly useCase = ACTIVITY_LOG_USECASES.JOIN_COMMUNITY_AS_MEMBER;
+
+  constructor(actor: UserLogDto, communityId: string, props: GroupsObject) {
+    super(actor, communityId, props);
+  }
+}
+
+export class JoinGroupAsAdminUC extends ActivityLogItem<JoinGroupAsAdminData> {
+  readonly useCase = ACTIVITY_LOG_USECASES.JOIN_COMMUNITY_AS_MEMBER;
+
+  constructor(actor: UserLogDto, communityId: string, props: JoinGroupAsAdminData) {
+    super(actor, communityId, props);
+  }
+}
+
+export class LeaveGroupUC extends ActivityLogItem<GroupsObject> {
+  readonly useCase = ACTIVITY_LOG_USECASES.LEAVE_GROUP;
+
+  constructor(actor: UserLogDto, communityId: string, props: GroupsObject) {
+    super(actor, communityId, props);
+  }
+}
+
+export class RemoveMembersUC extends ActivityLogItem<UsersWithGroupsData> {
+  readonly useCase = ACTIVITY_LOG_USECASES.REMOVE_MEMBER;
+
+  constructor(actor: UserLogDto, communityId: string, props: UsersWithGroupsData) {
+    super(actor, communityId, props);
+  }
+}
+
+export class ApproveJoinRequestsUC extends ActivityLogItem<ApproveJoinRequestData> {
+  readonly useCase = ACTIVITY_LOG_USECASES.APPROVE_JOIN_REQUEST;
+
+  constructor(actor: UserLogDto, communityId: string, props: ApproveJoinRequestData) {
+    super(actor, communityId, props);
+  }
+}
+
+export class DeclineJoinRequestsUC extends ActivityLogItem<UsersWithGroupData> {
+  readonly useCase = ACTIVITY_LOG_USECASES.DECLINE_JOIN_REQUEST;
+
+  constructor(actor: UserLogDto, communityId: string, props: UsersWithGroupData) {
+    super(actor, communityId, props);
+  }
+}
+
+export class AssignGroupAdminsUC extends ActivityLogItem<GroupAdminStatusChangedData> {
+  readonly useCase = ACTIVITY_LOG_USECASES.ASSIGN_GROUP_ADMIN;
+
+  constructor(actor: UserLogDto, communityId: string, props: GroupAdminStatusChangedData) {
+    super(actor, communityId, props);
+  }
+}
+
+export class RevokeGroupAdminsUC extends ActivityLogItem<GroupAdminStatusChangedData> {
+  readonly useCase = ACTIVITY_LOG_USECASES.REVOKE_GROUP_ADMIN;
+
+  constructor(actor: UserLogDto, communityId: string, props: GroupAdminStatusChangedData) {
     super(actor, communityId, props);
   }
 }
