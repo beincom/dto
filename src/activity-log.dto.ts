@@ -114,7 +114,15 @@ export type StateChangedOfGroup = StateChanged & {
   group: GroupLogDto;
 };
 
+export type StateChangedOfCommunity = StateChanged & {
+  community: CommunityLogDto;
+};
+
 export type GroupAdminStatusChangedData = StateChangedOfGroup & {
+  users: UserLogDto[];
+};
+
+export type CommunityAdminStatusChangedData = StateChangedOfCommunity & {
   users: UserLogDto[];
 };
 
@@ -190,7 +198,7 @@ export class JoinCommunityAsMemberUC extends ActivityLogItem<CommunityObject> {
 }
 
 export class JoinGroupAsMemberUC extends ActivityLogItem<GroupsObject> {
-  readonly useCase = ACTIVITY_LOG_USECASES.JOIN_COMMUNITY_AS_MEMBER;
+  readonly useCase = ACTIVITY_LOG_USECASES.JOIN_GROUP_AS_MEMBER;
 
   constructor(actor: UserLogDto, communityId: string, props: GroupsObject) {
     super(actor, communityId, props);
@@ -198,7 +206,7 @@ export class JoinGroupAsMemberUC extends ActivityLogItem<GroupsObject> {
 }
 
 export class JoinGroupAsAdminUC extends ActivityLogItem<JoinGroupAsAdminData> {
-  readonly useCase = ACTIVITY_LOG_USECASES.JOIN_COMMUNITY_AS_MEMBER;
+  readonly useCase = ACTIVITY_LOG_USECASES.JOIN_GROUP_AS_ADMIN;
 
   constructor(actor: UserLogDto, communityId: string, props: JoinGroupAsAdminData) {
     super(actor, communityId, props);
@@ -249,6 +257,22 @@ export class RevokeGroupAdminsUC extends ActivityLogItem<GroupAdminStatusChanged
   readonly useCase = ACTIVITY_LOG_USECASES.REVOKE_GROUP_ADMIN;
 
   constructor(actor: UserLogDto, communityId: string, props: GroupAdminStatusChangedData) {
+    super(actor, communityId, props);
+  }
+}
+
+export class AssignCommunityAdminsUC extends ActivityLogItem<CommunityAdminStatusChangedData> {
+  readonly useCase = ACTIVITY_LOG_USECASES.ASSIGN_COMMUNITY_ADMIN;
+
+  constructor(actor: UserLogDto, communityId: string, props: CommunityAdminStatusChangedData) {
+    super(actor, communityId, props);
+  }
+}
+
+export class RevokeCommunityAdminsUC extends ActivityLogItem<CommunityAdminStatusChangedData> {
+  readonly useCase = ACTIVITY_LOG_USECASES.REVOKE_COMMUNITY_ADMIN;
+
+  constructor(actor: UserLogDto, communityId: string, props: CommunityAdminStatusChangedData) {
     super(actor, communityId, props);
   }
 }

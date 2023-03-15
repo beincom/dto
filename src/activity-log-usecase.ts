@@ -11,4 +11,6 @@ export enum ACTIVITY_LOG_USECASES {
   LEAVE_GROUP = 'leave.group',
   ASSIGN_GROUP_ADMIN = 'assign.group_admin',
   REVOKE_GROUP_ADMIN = 'revoke.group_admin',
+  ASSIGN_COMMUNITY_ADMIN = 'assign.community_admin',
+  REVOKE_COMMUNITY_ADMIN = 'revoke.community_admin',
 }
