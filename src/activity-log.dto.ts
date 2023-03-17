@@ -34,6 +34,7 @@ export const ACTIVITY_LOG_EVENT = 'activity_log_created';
 
 export type CommunityLogDto = {
   id: string;
+  groupId: string;
   name: string;
   privacy: string;
   teamId: string;
