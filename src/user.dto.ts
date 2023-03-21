@@ -50,6 +50,7 @@ export interface SharedUserDto {
   avatar: string;
   email: string;
   isDeactivated: boolean;
+  blockings: string[];
   groups: string[];
 }
 export const SHARED_USER_KEY_PREFIX = "SU";
