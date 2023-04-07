@@ -53,4 +53,4 @@ export interface SharedUserDto {
   blockings: string[];
   groups: string[];
 }
-export const SHARED_USER_KEY_PREFIX = "SU";
+export const SHARED_USER_KEY_PREFIX = 'SU';
