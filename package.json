@@ -1,7 +1,7 @@
 {
   "name": "@beincom/dto",
-  "version": "1.0.4",
-  "description": "Share dto for all projects of BIC",
+  "version": "1.0.5",
+  "description": "Share dto for all projects of Beincom",
   "main": "./dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
