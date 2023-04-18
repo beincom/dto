@@ -51,6 +51,7 @@ export interface SharedUserDto {
   avatar: string;
   email: string;
   isDeactivated: boolean;
+  isVerified: boolean;
   blockings: string[];
   groups: string[];
 }
