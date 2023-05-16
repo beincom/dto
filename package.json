@@ -1,11 +1,10 @@
 {
   "name": "@beincom/dto",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Share dto for all projects of Beincom",
   "main": "./dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
-    "publish": "npm run build && npm publish --access public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
