@@ -51,7 +51,20 @@ export interface SharedUserDto {
   avatar: string;
   email: string;
   isDeactivated: boolean;
+  isVerified: boolean;
   blockings: string[];
   groups: string[];
 }
+
+
+export class UserPublicInfoDto {
+  fullname: string;
+  avatar: string;
+}
+
+export class UserBasicInfo extends UserPublicInfoDto {
+  id: string;
+  username: string;
+}
+
 export const SHARED_USER_KEY_PREFIX = 'SU';
