@@ -16,6 +16,18 @@ export enum USER_RELATIONSHIP_STATUS {
   MARRIED = 'MARRIED',
 }
 
+class CommunityInfo {
+  id: string;
+  name: string;
+}
+
+export class ShowingUserBadgeDto {
+  id: string;
+  name: string;
+  iconUrl: string;
+  community?: CommunityInfo;
+}
+
 export class UserDto {
   id: string;
   username: string;
@@ -38,6 +50,7 @@ export class UserDto {
   relationshipStatus: USER_RELATIONSHIP_STATUS;
   isDeactivated: boolean;
   isVerified: boolean;
+  showingBadges?: ShowingUserBadgeDto[];
 
   createdAt: Date;
   updatedAt: Date;
@@ -54,6 +67,7 @@ export interface SharedUserDto {
   isVerified: boolean;
   blockings: string[];
   groups: string[];
+  showingBadges?: ShowingUserBadgeDto[];
 }
 
 
