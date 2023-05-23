@@ -56,7 +56,6 @@ export interface SharedUserDto {
   groups: string[];
 }
 
-
 export class UserPublicInfoDto {
   fullname: string;
   avatar: string;

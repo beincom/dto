@@ -4,9 +4,6 @@ export enum ACTIVITY_EVENT_TYPES {
   DELETE = 'DELETE',
 }
 
-/**
- * Entity types
- */
 export enum ACTIVITY_OBJECT_TYPES {
   COMMUNITY = 'COMMUNITY',
   GROUP = 'GROUP',
