@@ -1,0 +1,17 @@
+export enum ACTIVITY_EVENT_TYPES {
+  CREATE = 'CREATE',
+  UPDATE = 'UPDATE',
+  DELETE = 'DELETE',
+}
+
+/**
+ * Entity types
+ */
+export enum ACTIVITY_OBJECT_TYPES {
+  COMMUNITY = 'COMMUNITY',
+  GROUP = 'GROUP',
+  MEMBER = 'MEMBER',
+  ARTICLE = 'ARTICLE',
+  POST = 'POST',
+  SERIES = 'SERIES',
+}
