@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -6,8 +6,8 @@ import {
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
   ActivityLogUserDTO,
-} from '../dtos';
-import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../enums';
+} from '../../dtos';
+import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
 class PayloadDTO {
   requestId?: string;
@@ -22,9 +22,9 @@ class DataDTO {
   group: Partial<ActivityLogGroupDTO>;
 }
 
-export class RemoveMembersLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.REMOVE_MEMBER;
-  static readonly eventType = ACTIVITY_EVENT_TYPES.DELETE;
+export class AddMemberToGroupLog extends ActivityLogBaseUseCase<DataDTO> {
+  static readonly useCase = ACTIVITY_LOG_USE_CASES.ADD_MEMBER_TO_GROUP;
+  static readonly eventType = ACTIVITY_EVENT_TYPES.CREATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 
   public static toPayload(data: PayloadDTO): ActivityLogPayloadDTO<PayloadDTO> {
@@ -40,6 +40,7 @@ export class RemoveMembersLog extends ActivityLogBaseUseCase<DataDTO> {
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
     const documents: ActivityLogDocumentDTO<DataDTO>[] = [];
+
     const { requestId, actor, users, groups } = data;
 
     for (const user of users) {

@@ -1,27 +1,29 @@
-import { ActivityLogBaseUseCase } from '../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
 import {
+  ActivityLogCommunityDTO,
   ActivityLogDocumentDTO,
-  ActivityLogGroupDTO,
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
   ActivityLogUserDTO,
-} from '../dtos';
-import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../enums';
+} from '../../dtos';
+import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
 class PayloadDTO {
   requestId?: string;
   actor: ActivityLogUserDTO;
-  group: ActivityLogGroupDTO;
+  users: ActivityLogUserDTO[];
+  community: ActivityLogCommunityDTO;
 }
 
 class DataDTO {
   actor: Partial<ActivityLogUserDTO>;
-  group: Partial<ActivityLogGroupDTO>;
+  user: Partial<ActivityLogUserDTO>;
+  community: Partial<ActivityLogCommunityDTO>;
 }
 
-export class JoinGroupAsMemberLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.JOIN_GROUP_AS_MEMBER;
+export class AddMemberToCommunityLog extends ActivityLogBaseUseCase<DataDTO> {
+  static readonly useCase = ACTIVITY_LOG_USE_CASES.ADD_MEMBER_TO_COMMUNITY;
   static readonly eventType = ACTIVITY_EVENT_TYPES.CREATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 
@@ -36,31 +38,31 @@ export class JoinGroupAsMemberLog extends ActivityLogBaseUseCase<DataDTO> {
   public static toDocument({
     eventTime,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { requestId, actor, group } = data;
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
+    const { requestId, actor, users, community } = data;
 
-    return {
+    return users.map((user) => ({
       eventTime,
       requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      communityId: group.communityId,
+      communityId: community.id,
       actorId: actor.id,
-      objectId: actor.id,
-      groupId: group.id,
+      objectId: user.id,
       data: {
         actor: { id: actor.id },
-        group,
+        user: { id: user.id },
+        community,
       },
-    };
+    }));
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {
-    const { actorId } = this.document;
+    const { actorId, data } = this.document;
 
     return {
-      userIds: [actorId],
+      userIds: [actorId, data.user.id],
     };
   }
 
@@ -70,6 +72,7 @@ export class JoinGroupAsMemberLog extends ActivityLogBaseUseCase<DataDTO> {
     return {
       ...data,
       actor: objectData.users[actorId],
+      user: objectData.users[data.user.id],
     };
   }
 }

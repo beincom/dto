@@ -1,6 +1,6 @@
 import { ROLE_TYPE } from '@beincom/constants';
 
-import { ActivityLogBaseUseCase } from '../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogCommunityDTO,
   ActivityLogDocumentDTO,
@@ -8,12 +8,11 @@ import {
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
   ActivityLogUserDTO,
-} from '../dtos';
-import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../enums';
+} from '../../dtos';
+import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
 class PayloadDTO {
   requestId?: string;
-  communityId: string;
   actor: ActivityLogUserDTO;
   users: ActivityLogUserDTO[];
   community: ActivityLogCommunityDTO;
@@ -31,8 +30,8 @@ class DataDTO {
   };
 }
 
-export class AssignCommunityAdminsLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.ASSIGN_COMMUNITY_ADMIN;
+export class RevokeCommunityAdminsLog extends ActivityLogBaseUseCase<DataDTO> {
+  static readonly useCase = ACTIVITY_LOG_USE_CASES.REVOKE_COMMUNITY_ADMIN;
   static readonly eventType = ACTIVITY_EVENT_TYPES.UPDATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 
@@ -85,7 +84,7 @@ export class AssignCommunityAdminsLog extends ActivityLogBaseUseCase<DataDTO> {
     return {
       ...data,
       actor: objectData.users[actorId],
-      user: objectData.users[data.user.id],
+      user: objectData.users[this.document.data.user.id],
     };
   }
 }

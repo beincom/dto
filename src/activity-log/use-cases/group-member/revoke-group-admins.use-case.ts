@@ -1,6 +1,6 @@
 import { ROLE_TYPE } from '@beincom/constants';
 
-import { ActivityLogBaseUseCase } from '../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -8,8 +8,8 @@ import {
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
   ActivityLogUserDTO,
-} from '../dtos';
-import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../enums';
+} from '../../dtos';
+import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
 class PayloadDTO {
   requestId?: string;

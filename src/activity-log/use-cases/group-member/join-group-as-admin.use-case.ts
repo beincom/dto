@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -6,29 +6,24 @@ import {
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
   ActivityLogUserDTO,
-  ActivityPropChangedDTO,
-} from '../dtos';
-import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../enums';
-import { GetPropsChanged } from '../helpers';
+} from '../../dtos';
+import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
 class PayloadDTO {
   requestId?: string;
   actor: ActivityLogUserDTO;
   group: ActivityLogGroupDTO;
-  originalState: string | object;
-  currentState: string | object;
 }
 
 class DataDTO {
   actor: Partial<ActivityLogUserDTO>;
-  snapshot: string | object;
-  changes: ActivityPropChangedDTO;
+  group: Partial<ActivityLogGroupDTO>;
 }
 
-export class GroupUpdateProfileLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.UPDATE_GROUP_PROFILE;
-  static readonly eventType = ACTIVITY_EVENT_TYPES.UPDATE;
-  static readonly objectType = ACTIVITY_OBJECT_TYPES.GROUP;
+export class JoinGroupAsAdminLog extends ActivityLogBaseUseCase<DataDTO> {
+  static readonly useCase = ACTIVITY_LOG_USE_CASES.JOIN_GROUP_AS_ADMIN;
+  static readonly eventType = ACTIVITY_EVENT_TYPES.CREATE;
+  static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 
   public static toPayload(data: PayloadDTO): ActivityLogPayloadDTO<PayloadDTO> {
     return {
@@ -49,15 +44,14 @@ export class GroupUpdateProfileLog extends ActivityLogBaseUseCase<DataDTO> {
       requestId,
       useCase: this.useCase,
       eventType: this.eventType,
-      objectType: this.objectType,
+      objectType: ACTIVITY_OBJECT_TYPES.MEMBER,
       communityId: group.communityId,
       actorId: actor.id,
-      objectId: group.id,
+      objectId: actor.id,
       groupId: group.id,
       data: {
         actor: { id: actor.id },
-        snapshot: data.originalState,
-        changes: GetPropsChanged(data.originalState, data.currentState),
+        group,
       },
     };
   }
