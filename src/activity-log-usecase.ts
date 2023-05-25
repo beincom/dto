@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 export enum ACTIVITY_LOG_USECASES {
   UPDATE_GROUP_PROFILE = 'update.group.profile',
   ADD_MEMBER_TO_COMMUNITY = 'add.member.to_community',

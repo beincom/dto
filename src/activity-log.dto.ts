@@ -1,5 +1,8 @@
 import { ACTIVITY_LOG_USECASES } from './activity-log-usecase';
 
+/**
+ * @deprecated
+ */
 export enum EVENT_TYPES {
   CREATE = 'CREATE',
   UPDATE = 'UPDATE',
@@ -7,6 +10,7 @@ export enum EVENT_TYPES {
 }
 
 /**
+ * @deprecated
  * Entity types
  */
 export enum OBJECT_TYPES {
@@ -18,6 +22,9 @@ export enum OBJECT_TYPES {
   SERIES = 'SERIES',
 }
 
+/**
+ * @deprecated
+ */
 export type UserLogDto = {
   id: string;
   username: string;
@@ -25,13 +32,22 @@ export type UserLogDto = {
   avatar: string;
 };
 
+/**
+ * @deprecated
+ */
 export class PropsChanged {
   [propName: string]: { old: string | object; new: string | object };
 }
 
-/** Use for the kafka topic name */
+/**
+ * @deprecated
+ * Use for the kafka topic name
+ **/
 export const ACTIVITY_LOG_EVENT = 'activity_log_created';
 
+/**
+ * @deprecated
+ */
 export type CommunityLogDto = {
   id: string;
   groupId: string;
@@ -40,6 +56,9 @@ export type CommunityLogDto = {
   teamId: string;
 };
 
+/**
+ * @deprecated
+ */
 export type GroupLogDto = {
   id: string;
   name: string;
@@ -48,34 +67,55 @@ export type GroupLogDto = {
   chatId: string;
 };
 
+/**
+ * @deprecated
+ */
 export type GroupsObject = {
   groups: GroupLogDto[];
 };
 
+/**
+ * @deprecated
+ */
 export type CommunityObject = {
   community: CommunityLogDto;
 };
 
+/**
+ * @deprecated
+ */
 export type UsersWithCommunityData = {
   users: UserLogDto[];
   community: CommunityLogDto;
 };
 
+/**
+ * @deprecated
+ */
 export type UsersWithGroupsData = {
   users: UserLogDto[];
   groups: GroupLogDto[];
 };
 
+/**
+ * @deprecated
+ */
 export type UsersWithGroupData = {
   users: UserLogDto[];
   group: GroupLogDto;
 };
 
+/**
+ * @deprecated
+ */
 export type JoinGroupAsAdminData = {
   groupsAsMember: GroupLogDto[];
   groupsAsAdmin: GroupLogDto[];
 };
 
+/**
+ * @deprecated
+ */
 export type ApproveJoinRequestData = {
   users: UserLogDto[];
   targetGroups: GroupLogDto[];
@@ -86,6 +126,9 @@ export type ApproveJoinRequestData = {
   outerGroups: GroupLogDto[];
 };
 
+/**
+ * @deprecated
+ */
 type StateChanged = {
   /** The original states of the object BEFORE making changes
    *
@@ -111,22 +154,37 @@ type StateChanged = {
   changes?: PropsChanged;
 };
 
+/**
+ * @deprecated
+ */
 export type StateChangedOfGroup = StateChanged & {
   group: GroupLogDto;
 };
 
+/**
+ * @deprecated
+ */
 export type StateChangedOfCommunity = StateChanged & {
   community: CommunityLogDto;
 };
 
+/**
+ * @deprecated
+ */
 export type GroupAdminStatusChangedData = StateChangedOfGroup & {
   users: UserLogDto[];
 };
 
+/**
+ * @deprecated
+ */
 export type CommunityAdminStatusChangedData = StateChangedOfCommunity & {
   users: UserLogDto[];
 };
 
+/**
+ * @deprecated
+ */
 export type LogPayload<T> = {
   useCase: ACTIVITY_LOG_USECASES;
   actor: UserLogDto;
@@ -136,6 +194,7 @@ export type LogPayload<T> = {
 };
 
 /**
+ * @deprecated
  * The base DTO contract for activity log item.
  *
  * This object will be used by BIC-services to write activity log info to the log queue (KAFKA),
@@ -166,6 +225,9 @@ export abstract class ActivityLogItem<T> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class AddMemberToCommunityUC extends ActivityLogItem<UsersWithCommunityData> {
   readonly useCase = ACTIVITY_LOG_USECASES.ADD_MEMBER_TO_COMMUNITY;
 
@@ -174,6 +236,9 @@ export class AddMemberToCommunityUC extends ActivityLogItem<UsersWithCommunityDa
   }
 }
 
+/**
+ * @deprecated
+ */
 export class AddMemberToGroupUC extends ActivityLogItem<UsersWithGroupsData> {
   readonly useCase = ACTIVITY_LOG_USECASES.ADD_MEMBER_TO_GROUP;
 
@@ -182,6 +247,9 @@ export class AddMemberToGroupUC extends ActivityLogItem<UsersWithGroupsData> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class UpdateGroupProfileUC extends ActivityLogItem<StateChangedOfGroup> {
   readonly useCase = ACTIVITY_LOG_USECASES.UPDATE_GROUP_PROFILE;
 
@@ -190,6 +258,9 @@ export class UpdateGroupProfileUC extends ActivityLogItem<StateChangedOfGroup> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class JoinCommunityAsMemberUC extends ActivityLogItem<CommunityObject> {
   readonly useCase = ACTIVITY_LOG_USECASES.JOIN_COMMUNITY_AS_MEMBER;
 
@@ -198,6 +269,9 @@ export class JoinCommunityAsMemberUC extends ActivityLogItem<CommunityObject> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class JoinGroupAsMemberUC extends ActivityLogItem<GroupsObject> {
   readonly useCase = ACTIVITY_LOG_USECASES.JOIN_GROUP_AS_MEMBER;
 
@@ -206,6 +280,9 @@ export class JoinGroupAsMemberUC extends ActivityLogItem<GroupsObject> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class JoinGroupAsAdminUC extends ActivityLogItem<JoinGroupAsAdminData> {
   readonly useCase = ACTIVITY_LOG_USECASES.JOIN_GROUP_AS_ADMIN;
 
@@ -214,6 +291,9 @@ export class JoinGroupAsAdminUC extends ActivityLogItem<JoinGroupAsAdminData> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class LeaveGroupUC extends ActivityLogItem<GroupsObject> {
   readonly useCase = ACTIVITY_LOG_USECASES.LEAVE_GROUP;
 
@@ -222,6 +302,9 @@ export class LeaveGroupUC extends ActivityLogItem<GroupsObject> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class RemoveMembersUC extends ActivityLogItem<UsersWithGroupsData> {
   readonly useCase = ACTIVITY_LOG_USECASES.REMOVE_MEMBER;
 
@@ -230,6 +313,9 @@ export class RemoveMembersUC extends ActivityLogItem<UsersWithGroupsData> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class ApproveJoinRequestsUC extends ActivityLogItem<ApproveJoinRequestData> {
   readonly useCase = ACTIVITY_LOG_USECASES.APPROVE_JOIN_REQUEST;
 
@@ -238,6 +324,9 @@ export class ApproveJoinRequestsUC extends ActivityLogItem<ApproveJoinRequestDat
   }
 }
 
+/**
+ * @deprecated
+ */
 export class DeclineJoinRequestsUC extends ActivityLogItem<UsersWithGroupData> {
   readonly useCase = ACTIVITY_LOG_USECASES.DECLINE_JOIN_REQUEST;
 
@@ -246,6 +335,9 @@ export class DeclineJoinRequestsUC extends ActivityLogItem<UsersWithGroupData> {
   }
 }
 
+/**
+ * @deprecated
+ */
 export class AssignGroupAdminsUC extends ActivityLogItem<GroupAdminStatusChangedData> {
   readonly useCase = ACTIVITY_LOG_USECASES.ASSIGN_GROUP_ADMIN;
 
@@ -254,6 +346,9 @@ export class AssignGroupAdminsUC extends ActivityLogItem<GroupAdminStatusChanged
   }
 }
 
+/**
+ * @deprecated
+ */
 export class RevokeGroupAdminsUC extends ActivityLogItem<GroupAdminStatusChangedData> {
   readonly useCase = ACTIVITY_LOG_USECASES.REVOKE_GROUP_ADMIN;
 
@@ -262,6 +357,9 @@ export class RevokeGroupAdminsUC extends ActivityLogItem<GroupAdminStatusChanged
   }
 }
 
+/**
+ * @deprecated
+ */
 export class AssignCommunityAdminsUC extends ActivityLogItem<CommunityAdminStatusChangedData> {
   readonly useCase = ACTIVITY_LOG_USECASES.ASSIGN_COMMUNITY_ADMIN;
 
@@ -270,6 +368,9 @@ export class AssignCommunityAdminsUC extends ActivityLogItem<CommunityAdminStatu
   }
 }
 
+/**
+ * @deprecated
+ */
 export class RevokeCommunityAdminsUC extends ActivityLogItem<CommunityAdminStatusChangedData> {
   readonly useCase = ACTIVITY_LOG_USECASES.REVOKE_COMMUNITY_ADMIN;
 
