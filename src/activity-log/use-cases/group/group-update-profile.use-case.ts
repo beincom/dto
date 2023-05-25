@@ -15,13 +15,14 @@ class PayloadDTO {
   requestId?: string;
   actor: ActivityLogUserDTO;
   group: ActivityLogGroupDTO;
-  originalState: string | object;
-  currentState: string | object;
+  originalState: object;
+  currentState: object;
 }
 
 class DataDTO {
   actor: Partial<ActivityLogUserDTO>;
-  snapshot: string | object;
+  group: Partial<ActivityLogGroupDTO>;
+  snapshot: object;
   changes: ActivityPropChangedDTO;
 }
 
@@ -56,8 +57,9 @@ export class GroupUpdateProfileLog extends ActivityLogBaseUseCase<DataDTO> {
       groupId: group.id,
       data: {
         actor: { id: actor.id },
-        snapshot: data.originalState,
+        group: data.group,
         changes: GetPropsChanged(data.originalState, data.currentState),
+        snapshot: data.originalState,
       },
     };
   }

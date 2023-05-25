@@ -13,7 +13,6 @@ import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } f
 
 class PayloadDTO {
   requestId?: string;
-  communityId: string;
   actor: ActivityLogUserDTO;
   users: ActivityLogUserDTO[];
   community: ActivityLogCommunityDTO;
@@ -32,7 +31,9 @@ class DataDTO {
 }
 
 export class AssignCommunityAdminsLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.ASSIGN_COMMUNITY_ADMIN;
+  static readonly useCase:
+    | ACTIVITY_LOG_USE_CASES.REVOKE_COMMUNITY_ADMIN
+    | ACTIVITY_LOG_USE_CASES.ASSIGN_COMMUNITY_ADMIN = ACTIVITY_LOG_USE_CASES.ASSIGN_COMMUNITY_ADMIN;
   static readonly eventType = ACTIVITY_EVENT_TYPES.UPDATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 

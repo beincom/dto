@@ -12,7 +12,7 @@ import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } f
 class PayloadDTO {
   requestId?: string;
   actor: ActivityLogUserDTO;
-  group: ActivityLogGroupDTO;
+  groups: ActivityLogGroupDTO[];
 }
 
 class DataDTO {
@@ -21,7 +21,9 @@ class DataDTO {
 }
 
 export class JoinGroupAsMemberLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.JOIN_GROUP_AS_MEMBER;
+  static readonly useCase:
+    | ACTIVITY_LOG_USE_CASES.JOIN_GROUP_AS_MEMBER
+    | ACTIVITY_LOG_USE_CASES.JOIN_GROUP_AS_ADMIN = ACTIVITY_LOG_USE_CASES.JOIN_GROUP_AS_MEMBER;
   static readonly eventType = ACTIVITY_EVENT_TYPES.CREATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 
@@ -36,10 +38,10 @@ export class JoinGroupAsMemberLog extends ActivityLogBaseUseCase<DataDTO> {
   public static toDocument({
     eventTime,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { requestId, actor, group } = data;
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
+    const { requestId, actor, groups } = data;
 
-    return {
+    return groups.map((group) => ({
       eventTime,
       requestId,
       useCase: this.useCase,
@@ -53,7 +55,7 @@ export class JoinGroupAsMemberLog extends ActivityLogBaseUseCase<DataDTO> {
         actor: { id: actor.id },
         group,
       },
-    };
+    }));
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {

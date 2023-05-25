@@ -30,8 +30,10 @@ class DataDTO {
   };
 }
 
-export class AssignGroupAdminsLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.ASSIGN_GROUP_ADMIN;
+export class AssignGroupAdminLog extends ActivityLogBaseUseCase<DataDTO> {
+  static readonly useCase:
+    | ACTIVITY_LOG_USE_CASES.ASSIGN_GROUP_ADMIN
+    | ACTIVITY_LOG_USE_CASES.REVOKE_GROUP_ADMIN = ACTIVITY_LOG_USE_CASES.ASSIGN_GROUP_ADMIN;
   static readonly eventType = ACTIVITY_EVENT_TYPES.UPDATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 

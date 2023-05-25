@@ -9,6 +9,7 @@ export abstract class ActivityLogBaseUseCase<T> {
   constructor(private readonly _document: ActivityLogDocumentDTO<T>) {}
 
   /**
+   * @method
    * public static toPayload(data: PayloadDTO): ActivityLogPayloadDTO<PayloadDTO>
    *
    * Used for the producer, to create a payload for an activity log.
@@ -16,6 +17,7 @@ export abstract class ActivityLogBaseUseCase<T> {
    */
 
   /**
+   * @method
    * public static toDocument(payload: ActivityLogPayloadDTO<PayloadDTO>)
    *
    * Used for the consumer, to create a document for an activity log.
