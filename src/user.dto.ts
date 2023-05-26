@@ -70,7 +70,6 @@ export interface SharedUserDto {
   showingBadges?: ShowingUserBadgeDto[];
 }
 
-
 export class UserPublicInfoDto {
   fullname: string;
   avatar: string;

@@ -26,6 +26,16 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': 'warn',
+
+    'import/order': [
+      'warn',
+      {
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+        },
+      },
+    ],
     'prettier/prettier': [
       2,
       {
@@ -35,4 +45,24 @@ module.exports = {
     curly: 'error',
     'import/no-duplicates': 'error',
   },
-};
+  overrides: [
+    {
+      files: ['*.ts', '*.mts', '*.cts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/explicit-member-accessibility': [
+          'error',
+          {
+            accessibility: 'explicit',
+            overrides: {
+              accessors: 'explicit',
+              constructors: 'no-public',
+              methods: 'explicit',
+              properties: 'no-public',
+              parameterProperties: 'explicit',
+            },
+          },
+        ],
+      },
+    },
+  ],
+}
