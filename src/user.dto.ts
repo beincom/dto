@@ -21,11 +21,15 @@ class CommunityInfo {
   name: string;
 }
 
-export class ShowingUserBadgeDto {
+export class ShowingBadgeDto {
   id: string;
   name: string;
   iconUrl: string;
   community?: CommunityInfo;
+}
+
+export class ShowingBadgesByUserIdMapDto {
+  [key: string]: ShowingBadgeDto[];
 }
 
 export class UserDto {
@@ -50,7 +54,7 @@ export class UserDto {
   relationshipStatus: USER_RELATIONSHIP_STATUS;
   isDeactivated: boolean;
   isVerified: boolean;
-  showingBadges?: ShowingUserBadgeDto[];
+  showingBadges?: ShowingBadgeDto[];
 
   createdAt: Date;
   updatedAt: Date;
@@ -67,7 +71,7 @@ export interface SharedUserDto {
   isVerified: boolean;
   blockings: string[];
   groups: string[];
-  showingBadges?: ShowingUserBadgeDto[];
+  showingBadges?: ShowingBadgeDto[];
 }
 
 export class UserPublicInfoDto {
