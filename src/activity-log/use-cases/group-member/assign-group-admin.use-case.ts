@@ -12,7 +12,6 @@ import {
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
 class PayloadDTO {
-  requestId?: string;
   actor: ActivityLogUserDTO;
   users: ActivityLogUserDTO[];
   group: ActivityLogGroupDTO;
@@ -47,9 +46,10 @@ export class AssignGroupAdminLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
+    requestId,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
-    const { requestId, actor, users, group } = data;
+    const { actor, users, group } = data;
 
     return users.map((user) => ({
       eventTime,

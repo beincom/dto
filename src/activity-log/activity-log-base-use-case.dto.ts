@@ -1,5 +1,29 @@
-import { ActivityLogDocumentDTO, ActivityLogObjectDataDTO, ActivityLogObjectIdDTO } from './dtos';
+import {
+  ActivityLogCommunityDTO,
+  ActivityLogDocumentDTO,
+  ActivityLogGroupDTO,
+  ActivityLogObjectDataDTO,
+  ActivityLogObjectIdDTO,
+  ActivityLogUserDTO,
+  ActivityPropChangedDTO,
+} from './dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from './enums';
+
+export class BasePayloadDTO<T = object> {
+  rootUseCase: ACTIVITY_LOG_USE_CASES;
+  actor: ActivityLogUserDTO;
+  community: ActivityLogCommunityDTO;
+  group: ActivityLogGroupDTO;
+  originalState: T;
+  currentState: T;
+}
+
+export class BaseDataDTO {
+  actor: Partial<ActivityLogUserDTO>;
+  community: Partial<ActivityLogCommunityDTO>;
+  group: Partial<ActivityLogGroupDTO>;
+  changes: ActivityPropChangedDTO;
+}
 
 export abstract class ActivityLogBaseUseCase<T> {
   static readonly useCase: ACTIVITY_LOG_USE_CASES;

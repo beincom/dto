@@ -11,7 +11,6 @@ import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } f
 import { AddMemberToGroupLog } from '../group-member';
 
 class PayloadDTO {
-  requestId?: string;
   actor: ActivityLogUserDTO;
   users: ActivityLogUserDTO[];
   groups: ActivityLogGroupDTO[];
@@ -39,9 +38,10 @@ export class ApproveJoinRequestLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
+    requestId,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
-    const { requestId, actor, users, groups, outerGroups } = data;
+    const { actor, users, groups, outerGroups } = data;
 
     const documents: ActivityLogDocumentDTO<DataDTO>[] = [];
 
@@ -68,7 +68,6 @@ export class ApproveJoinRequestLog extends ActivityLogBaseUseCase<DataDTO> {
 
     if (outerGroups.length > 0) {
       const addMemberToGroupPayload = AddMemberToGroupLog.toPayload({
-        requestId,
         actor,
         users,
         groups: outerGroups,

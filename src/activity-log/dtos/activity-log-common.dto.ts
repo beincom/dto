@@ -14,6 +14,7 @@ import {
 export class ActivityLogPayloadDTO<TPayload> {
   useCase: string;
   eventTime: number;
+  requestId?: string;
   data: TPayload;
 }
 
@@ -26,6 +27,7 @@ export class ActivityLogDocumentDTO<TData> {
   useCase: string;
   eventTime: number;
   requestId?: string;
+  rootUseCase?: string;
   actorId: string;
   communityId: string;
   groupId?: string;
