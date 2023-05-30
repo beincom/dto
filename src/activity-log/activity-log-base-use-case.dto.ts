@@ -4,6 +4,7 @@ import {
   ActivityLogGroupDTO,
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
+  ActivityLogPayloadDTO,
   ActivityLogUserDTO,
   ActivityPropChangedDTO,
 } from './dtos';
@@ -23,6 +24,13 @@ export class BaseDataDTO {
   community: Partial<ActivityLogCommunityDTO>;
   group: Partial<ActivityLogGroupDTO>;
   changes: ActivityPropChangedDTO;
+}
+
+export interface IActivityLogBaseUseCase {
+  toPayload(data: any): ActivityLogPayloadDTO<any>;
+  toDocument(payload: ActivityLogPayloadDTO<any>): ActivityLogDocumentDTO<any>;
+  toObjectIds(): ActivityLogObjectIdDTO;
+  toData(objectData: ActivityLogObjectDataDTO): any;
 }
 
 export abstract class ActivityLogBaseUseCase<T> {
