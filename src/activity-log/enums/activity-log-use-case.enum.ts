@@ -31,4 +31,11 @@ export enum ACTIVITY_LOG_USE_CASES {
   UPDATE_GROUP_SCHEME = 'update.group_scheme',
   DELETE_GROUP_SCHEME = 'delete.group_scheme',
   ASSIGN_GROUP_SCHEME = 'assign.group_scheme',
+
+  /** Badge **/
+  CREATE_GROUP_BADGE = 'create.group_badge',
+  UPDATE_GROUP_BADGE = 'update.group_badge',
+  DELETE_GROUP_BADGE = 'delete.group_badge',
+  ASSIGN_GROUP_BADGE = 'assign.group_badge',
+  UNASSIGN_GROUP_BADGE = 'unassign.group_badge',
 }
