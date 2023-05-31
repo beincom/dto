@@ -8,11 +8,12 @@ import {
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
+  ChangeBaseDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 import { GetPropsChanged } from '../../helpers';
 
-type SchemeState = {
+export type SchemeState = {
   id: string;
   name: string;
   description: string;
@@ -29,15 +30,27 @@ type PayloadDTO = Pick<
   BasePayloadDTO<SchemeState>,
   'actor' | 'community' | 'originalState' | 'currentState'
 >;
-type DataDTO = Pick<BaseDataDTO, 'actor' | 'community' | 'changes'>;
+type DataDTO = Pick<BaseDataDTO, 'actor' | 'community'> & {
+  changes: {
+    id?: ChangeBaseDTO<SchemeState['id']>;
+    name?: ChangeBaseDTO<SchemeState['name']>;
+    description?: ChangeBaseDTO<SchemeState['description']>;
+    roles?: ChangeBaseDTO<SchemeState['roles']>;
+  };
+};
 
 export class BaseSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
   static readonly useCase:
     | ACTIVITY_LOG_USE_CASES.CREATE_GENERAL_SCHEME
     | ACTIVITY_LOG_USE_CASES.UPDATE_GENERAL_SCHEME
+    | ACTIVITY_LOG_USE_CASES.DELETE_GENERAL_SCHEME
     | ACTIVITY_LOG_USE_CASES.CREATE_GROUP_SCHEME
-    | ACTIVITY_LOG_USE_CASES.UPDATE_GROUP_SCHEME;
-  static readonly eventType: ACTIVITY_EVENT_TYPES.CREATE | ACTIVITY_EVENT_TYPES.UPDATE;
+    | ACTIVITY_LOG_USE_CASES.UPDATE_GROUP_SCHEME
+    | ACTIVITY_LOG_USE_CASES.DELETE_GROUP_SCHEME;
+  static readonly eventType:
+    | ACTIVITY_EVENT_TYPES.CREATE
+    | ACTIVITY_EVENT_TYPES.UPDATE
+    | ACTIVITY_EVENT_TYPES.DELETE;
   static readonly objectType:
     | ACTIVITY_OBJECT_TYPES.GENERAL_SCHEME
     | ACTIVITY_OBJECT_TYPES.GROUP_SCHEME;
@@ -64,7 +77,7 @@ export class BaseSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
       communityId: community.id,
       eventType: this.eventType,
       objectType: this.objectType,
-      objectId: currentState.id,
+      objectId: this.eventType === ACTIVITY_EVENT_TYPES.DELETE ? originalState.id : currentState.id,
       data: {
         actor,
         community,
