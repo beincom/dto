@@ -1,6 +1,7 @@
-import { ACTIVITY_EVENT_TYPES, ACTIVITY_OBJECT_TYPES, ACTIVITY_LOG_USE_CASES } from '../enums';
+import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../enums';
 
 import {
+  ActivityLogBadgeDTO,
   ActivityLogCommunityDTO,
   ActivityLogGroupDTO,
   ActivityLogUserDTO,
@@ -45,6 +46,7 @@ export class ActivityLogObjectIdDTO {
   userIds?: string[];
   groupIds?: string[];
   communityIds?: string[];
+  badgeIds?: string[];
 }
 
 /**
@@ -55,4 +57,5 @@ export class ActivityLogObjectDataDTO {
   users: Record<string, ActivityLogUserDTO>;
   groups: Record<string, ActivityLogGroupDTO>;
   communities: Record<string, ActivityLogCommunityDTO>;
+  badges?: Record<string, ActivityLogBadgeDTO>;
 }

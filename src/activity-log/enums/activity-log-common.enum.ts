@@ -17,3 +17,8 @@ export enum ACTIVITY_OBJECT_TYPES {
   POST = 'POST',
   SERIES = 'SERIES',
 }
+
+export enum BADGE_TYPE {
+  GROUP = 'GROUP',
+  ACHIEVEMENT = 'ACHIEVEMENT',
+}
