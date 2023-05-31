@@ -53,7 +53,7 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
       communityId: community.id,
       eventType: this.eventType,
       objectType: this.objectType,
-      objectId: originalState.id,
+      objectId: currentState.id ?? originalState.id,
       data: {
         actor,
         group,
@@ -66,21 +66,19 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public toObjectIds(): ActivityLogObjectIdDTO {
     return {
-      userIds: [this.document.actorId],
       badgeIds: [this.document.objectId],
-      groupIds: [this.document.groupId],
-      communityIds: [this.document.communityId],
     };
   }
 
-  public toData(objectData: Partial<ActivityLogObjectDataDTO>): DataDTO {
-    const { actorId, data, objectId, communityId } = this.document;
+  public toData(
+    objectData: Partial<ActivityLogObjectDataDTO>,
+  ): DataDTO & { badge: ActivityLogBadgeDTO } {
+    const { actorId, data, objectId } = this.document;
 
     return {
       ...data,
       actor: objectData.users?.[actorId],
-      object: objectData.badges?.[objectId],
-      community: objectData.communities?.[communityId],
+      badge: objectData.badges?.[objectId],
     };
   }
 }
