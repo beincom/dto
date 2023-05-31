@@ -9,19 +9,27 @@ import {
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
+  ChangeBaseDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 import { GetPropsChanged } from '../../helpers';
 
-type AssignSchemeState = {
+export type AssignSchemeState = {
   id: string;
+  name: string;
   assigned: ActivityLogGroupDTO[];
 };
 type PayloadDTO = Pick<
   BasePayloadDTO<AssignSchemeState>,
   'actor' | 'community' | 'originalState' | 'currentState'
 >;
-type DataDTO = Pick<BaseDataDTO, 'actor' | 'community' | 'changes'>;
+type DataDTO = Pick<BaseDataDTO, 'actor' | 'community'> & {
+  changes: {
+    id?: ChangeBaseDTO<AssignSchemeState['id']>;
+    name?: ChangeBaseDTO<AssignSchemeState['name']>;
+    assigned?: ChangeBaseDTO<AssignSchemeState['assigned']>;
+  };
+};
 
 export class AssignGroupSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
   static readonly useCase = ACTIVITY_LOG_USE_CASES.ASSIGN_GROUP_SCHEME;
