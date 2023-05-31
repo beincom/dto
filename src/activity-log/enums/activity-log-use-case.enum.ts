@@ -18,6 +18,11 @@ export enum ACTIVITY_LOG_USE_CASES {
   /** Group **/
   UPDATE_GROUP_PROFILE = 'update.group.profile',
 
+  /** Group terms **/
+  CREATE_TERMS = 'create.group.terms',
+  UPDATE_TERMS = 'update.group.terms',
+  DELETE_TERMS = 'delete.group.terms',
+
   /** Scheme **/
   CREATE_GENERAL_SCHEME = 'create.general_scheme',
   UPDATE_GENERAL_SCHEME = 'update.general_scheme',

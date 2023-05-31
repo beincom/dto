@@ -21,9 +21,11 @@ export class ActivityLogGroupDTO {
   privacy: string;
 }
 
-export class ActivityPropChangedDTO {
-  [propName: string]: {
-    old: string | object;
-    new: string | object;
-  };
+export interface ChangeBaseDTO<T> {
+  old: T;
+  new: T;
+}
+
+export class ActivityPropChangedDTO<T = unknown> {
+  [propName: string]: ChangeBaseDTO<T>;
 }

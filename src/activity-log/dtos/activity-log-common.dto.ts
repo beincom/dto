@@ -1,4 +1,4 @@
-import { ACTIVITY_EVENT_TYPES, ACTIVITY_OBJECT_TYPES } from '../enums';
+import { ACTIVITY_EVENT_TYPES, ACTIVITY_OBJECT_TYPES, ACTIVITY_LOG_USE_CASES } from '../enums';
 
 import {
   ActivityLogCommunityDTO,
@@ -12,7 +12,7 @@ import {
  * @template TPayload - The type of data contained in the payload.
  */
 export class ActivityLogPayloadDTO<TPayload> {
-  useCase: string;
+  useCase: ACTIVITY_LOG_USE_CASES;
   eventTime: number;
   requestId?: string;
   data: TPayload;
@@ -24,7 +24,7 @@ export class ActivityLogPayloadDTO<TPayload> {
  * @template TData - The type of data contained in the document.
  */
 export class ActivityLogDocumentDTO<TData> {
-  useCase: string;
+  useCase: ACTIVITY_LOG_USE_CASES;
   eventTime: number;
   requestId?: string;
   rootUseCase?: string;
