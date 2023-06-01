@@ -1,4 +1,4 @@
-import { BADGE_TYPE } from '../enums';
+import { BADGE_TYPE, SCHEME_SCOPE } from '../enums';
 
 export type RequiredProps<T> = T & { [key: string]: any };
 
@@ -68,6 +68,26 @@ export class ActivityLogBadgeDTO {
       iconUrl: object.iconUrl,
       assignedTo: object.assignedTo,
       communityId: object.communityId,
+    });
+  }
+}
+
+export class ActivityLogSchemeDTO {
+  id: string;
+  name: string;
+  description: string;
+  isSystem: boolean;
+  scope: SCHEME_SCOPE;
+  usedInsideCommId: string;
+
+  constructor(object: RequiredProps<ActivityLogSchemeDTO>) {
+    Object.assign(this, {
+      id: object.id,
+      name: object.name,
+      description: object.description,
+      isSystem: object.isSystem,
+      scope: object.scope,
+      usedInsideCommId: object.usedInsideCommId,
     });
   }
 }

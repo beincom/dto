@@ -19,11 +19,12 @@ export class BasePayloadDTO<T = object> {
   currentState: T;
 }
 
-export class BaseDataDTO {
+export class BaseDataDTO<T = object> {
   actor: Partial<ActivityLogUserDTO>;
   community: Partial<ActivityLogCommunityDTO>;
   group: Partial<ActivityLogGroupDTO>;
   changes: ActivityPropChangedDTO;
+  object: T;
 }
 
 export interface IActivityLogBaseUseCase {

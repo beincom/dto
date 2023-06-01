@@ -21,8 +21,7 @@ class BadgeChanges extends ActivityPropChangedDTO {
   assignedTo: ChangeBaseDTO<string>;
 }
 
-class DataDTO extends BaseDataDTO {
-  badge: ActivityLogBadgeDTO;
+class DataDTO extends BaseDataDTO<ActivityLogBadgeDTO> {
   changes: BadgeChanges;
 }
 
@@ -59,6 +58,7 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
         actor,
         group,
         community,
+        object: currentState,
         changes: GetPropsChanged(originalState, currentState),
       },
     };
@@ -79,7 +79,7 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
     return {
       ...data,
       actor: objectData.users?.[actorId],
-      badge: objectData.badges?.[objectId],
+      object: objectData.badges?.[objectId],
       community: objectData.communities?.[communityId],
     };
   }
