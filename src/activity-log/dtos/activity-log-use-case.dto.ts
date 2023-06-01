@@ -65,6 +65,7 @@ export class ActivityLogBadgeDTO {
     Object.assign(this, {
       id: object.id,
       name: object.name,
+      type: object.type,
       iconUrl: object.iconUrl,
       assignedTo: object.assignedTo,
       communityId: object.communityId,

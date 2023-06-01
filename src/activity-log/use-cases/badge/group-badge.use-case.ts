@@ -54,7 +54,7 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
       communityId: community.id,
       eventType: this.eventType,
       objectType: this.objectType,
-      objectId: originalState.id,
+      objectId: currentState.id ?? originalState.id,
       data: {
         actor,
         group,
