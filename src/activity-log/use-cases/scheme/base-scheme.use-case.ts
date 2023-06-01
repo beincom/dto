@@ -8,15 +8,13 @@ import {
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
+  ActivityLogSchemeDTO,
   ChangeBaseDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 import { GetPropsChanged } from '../../helpers';
 
-export type SchemeState = {
-  id: string;
-  name: string;
-  description: string;
+export type SchemeState = ActivityLogSchemeDTO & {
   roles: {
     name: string;
     permissions: {
@@ -30,7 +28,7 @@ type PayloadDTO = Pick<
   BasePayloadDTO<SchemeState>,
   'actor' | 'community' | 'originalState' | 'currentState'
 >;
-type DataDTO = Pick<BaseDataDTO, 'actor' | 'community'> & {
+type DataDTO = Pick<BaseDataDTO<ActivityLogSchemeDTO>, 'actor' | 'community' | 'object'> & {
   changes: {
     id?: ChangeBaseDTO<SchemeState['id']>;
     name?: ChangeBaseDTO<SchemeState['name']>;
@@ -81,6 +79,7 @@ export class BaseSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
       data: {
         actor,
         community,
+        object: this.eventType === ACTIVITY_EVENT_TYPES.DELETE ? originalState : currentState,
         changes: GetPropsChanged(originalState, currentState),
       },
     };

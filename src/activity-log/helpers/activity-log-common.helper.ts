@@ -7,21 +7,15 @@ export function GetPropsChanged(old: any = {}, current: any = {}): ActivityPropC
   const allKeys = union(keys(old), keys(current));
 
   allKeys.forEach((key) => {
-    if (!old?.[key] && current[key]) {
-      changes[key] = {
-        old: null,
-        new: current[key],
-      };
-    } else if (old[key] && !current?.[key]) {
-      changes[key] = {
-        old: old[key],
-        new: null,
-      };
+    const isOldUndefined = !old || old[key] === undefined;
+    const isCurrentUndefined = !current || current[key] === undefined;
+
+    if (isOldUndefined && !isCurrentUndefined) {
+      changes[key] = { old: null, new: current[key] };
+    } else if (!isOldUndefined && isCurrentUndefined) {
+      changes[key] = { old: old[key], new: null };
     } else if (JSON.stringify(old[key]) !== JSON.stringify(current[key])) {
-      changes[key] = {
-        old: old[key],
-        new: current[key],
-      };
+      changes[key] = { old: old[key], new: current[key] };
     }
   });
 

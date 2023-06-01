@@ -22,3 +22,9 @@ export enum BADGE_TYPE {
   GROUP = 'GROUP',
   ACHIEVEMENT = 'ACHIEVEMENT',
 }
+
+export enum SCHEME_SCOPE {
+  SYSTEM = 'SYSTEM',
+  COMMUNITY = 'COMMUNITY',
+  GROUP = 'GROUP',
+}
