@@ -78,6 +78,14 @@ export class UpdateGroupProfileLog extends ActivityLogBaseUseCase<DataDTO> {
     return {
       ...data,
       actor: objectData.users[actorId],
+      changes: data.changes || {},
+      group: data.group || {
+        id: data.snapshot['id'],
+        communityId: data.snapshot['communityId'],
+        name: data.snapshot['name'],
+        level: data.snapshot['level'],
+        privacy: data.snapshot['privacy'],
+      },
     };
   }
 }
