@@ -25,6 +25,11 @@ export enum ACTIVITY_LOG_USE_CASES {
   UPDATE_TERMS = 'update.group.terms',
   DELETE_TERMS = 'delete.group.terms',
 
+  /** Group membership question **/
+  CREATE_MEMBERSHIP_QUESTION = 'create.group.membership_question',
+  UPDATE_MEMBERSHIP_QUESTION = 'update.group.membership_question',
+  DELETE_MEMBERSHIP_QUESTION = 'delete.group.membership_question',
+
   /** Scheme **/
   CREATE_GENERAL_SCHEME = 'create.general_scheme',
   UPDATE_GENERAL_SCHEME = 'update.general_scheme',
