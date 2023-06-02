@@ -53,6 +53,24 @@ export class ActivityLogGroupDTO {
   }
 }
 
+export class ActivityLogGroupSetDTO {
+  id: string;
+  communityId: string;
+  name: string;
+  isDefault: boolean;
+  groups: ActivityLogGroupDTO[];
+
+  constructor(object: RequiredProps<ActivityLogGroupSetDTO>) {
+    Object.assign(this, {
+      id: object.id,
+      communityId: object.communityId,
+      name: object.name,
+      isDefault: object.isDefault,
+      groups: object.groups,
+    });
+  }
+}
+
 export class ActivityLogBadgeDTO {
   id: string;
   name: string;
