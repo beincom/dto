@@ -20,6 +20,13 @@ export enum ACTIVITY_LOG_USE_CASES {
   ARCHIVE_UNARCHIVE_GROUP = 'archive-unarchive.group',
   MOVE_GROUP = 'move.group',
 
+  /** Group set **/
+  CREATE_GROUP_SET = 'create.group_set',
+  DELETE_GROUP_SET = 'delete.group_set',
+  UPDATE_GROUP_SET = 'update.group_set',
+  MAKE_DEFAULT_GROUP_SET = 'make_default.group_set',
+  REMOVE_DEFAULT_GROUP_SET = 'remove_default.group_set',
+
   /** Group terms **/
   CREATE_TERMS = 'create.group.terms',
   UPDATE_TERMS = 'update.group.terms',
