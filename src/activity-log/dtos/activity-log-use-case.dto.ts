@@ -58,7 +58,6 @@ export class ActivityLogBadgeDTO {
   name: string;
   type: BADGE_TYPE;
   iconUrl: string;
-  assignedTo: string;
   communityId: string;
 
   constructor(object: RequiredProps<ActivityLogBadgeDTO>) {
@@ -67,7 +66,7 @@ export class ActivityLogBadgeDTO {
       name: object.name,
       type: object.type,
       iconUrl: object.iconUrl,
-      assignedTo: object.assignedTo,
+      assignedTo: object.assignedTo ? new ActivityLogGroupDTO(object.assignedTo) : null,
       communityId: object.communityId,
     });
   }

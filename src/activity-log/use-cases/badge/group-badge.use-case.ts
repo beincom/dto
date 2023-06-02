@@ -6,26 +6,23 @@ import {
 import {
   ActivityLogBadgeDTO,
   ActivityLogDocumentDTO,
+  ActivityLogGroupDTO,
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
   ActivityPropChangedDTO,
-  ChangeBaseDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 import { GetPropsChanged } from '../../helpers';
 
-class BadgeChanges extends ActivityPropChangedDTO {
-  name: ChangeBaseDTO<string>;
-  iconUrl: ChangeBaseDTO<string>;
-  assignedTo: ChangeBaseDTO<string>;
-}
+export type BadgeLogDto = ActivityLogBadgeDTO & { assignedTo?: ActivityLogGroupDTO };
+type BadgeChanges = ActivityPropChangedDTO<BadgeLogDto>;
 
-class DataDTO extends BaseDataDTO<ActivityLogBadgeDTO> {
+type PayloadDTO = Omit<BasePayloadDTO<BadgeLogDto>, 'group' | 'community'>;
+
+type DataDTO = Omit<BaseDataDTO<BadgeLogDto>, 'group' | 'community'> & {
   changes: BadgeChanges;
-}
-
-class PayloadDTO extends BasePayloadDTO<ActivityLogBadgeDTO> {}
+};
 
 export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
   static readonly useCase: ACTIVITY_LOG_USE_CASES = ACTIVITY_LOG_USE_CASES.CREATE_GROUP_BADGE;
@@ -43,23 +40,29 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
   public static toDocument({
     eventTime,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<BaseDataDTO> {
-    const { actor, community, group, originalState, currentState } = data;
+    useCase,
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { actor, originalState, currentState } = data;
+    const isNotUpdate = [
+      ACTIVITY_LOG_USE_CASES.CREATE_GROUP_BADGE,
+      ACTIVITY_LOG_USE_CASES.DELETE_GROUP_BADGE,
+    ].includes(useCase);
+    const loggedBadge = currentState.id ? currentState : originalState;
 
     return {
       useCase: this.useCase,
       eventTime,
       actorId: actor.id,
-      communityId: community.id,
+      communityId: loggedBadge.communityId,
       eventType: this.eventType,
       objectType: this.objectType,
       objectId: currentState.id ?? originalState.id,
       data: {
         actor,
-        group,
-        community,
-        object: currentState,
-        changes: GetPropsChanged(originalState, currentState),
+        object: loggedBadge,
+        changes: isNotUpdate
+          ? {}
+          : (GetPropsChanged(originalState, currentState) as unknown as BadgeChanges),
       },
     };
   }
@@ -68,19 +71,18 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
     return {
       userIds: [this.document.actorId],
       badgeIds: [this.document.objectId],
-      groupIds: [this.document.groupId],
-      communityIds: [this.document.communityId],
     };
   }
 
-  public toData(objectData: Partial<ActivityLogObjectDataDTO>): DataDTO {
-    const { actorId, data, objectId, communityId } = this.document;
+  public toData(
+    objectData: Partial<ActivityLogObjectDataDTO>,
+  ): DataDTO & { badge: ActivityLogBadgeDTO } {
+    const { actorId, data, objectId } = this.document;
 
     return {
       ...data,
-      actor: objectData.users?.[actorId],
-      object: objectData.badges?.[objectId],
-      community: objectData.communities?.[communityId],
+      actor: objectData.users[actorId],
+      badge: objectData.badges[objectId],
     };
   }
 }
