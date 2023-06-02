@@ -52,7 +52,7 @@ export class MoveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
       objectId: group.id,
       data: {
         actor,
-        object: group,
+        object: originalState,
         changes: GetPropsChanged(originalState, currentState) as Moved,
       },
     };
