@@ -47,7 +47,7 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
       ACTIVITY_LOG_USE_CASES.CREATE_GROUP_BADGE,
       ACTIVITY_LOG_USE_CASES.DELETE_GROUP_BADGE,
     ].includes(useCase);
-    const loggedBadge = currentState.id ? currentState : originalState;
+    const loggedBadge = originalState.id ? originalState : currentState;
 
     return {
       useCase: this.useCase,
