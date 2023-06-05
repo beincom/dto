@@ -1,6 +1,7 @@
 import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
+  ActivityLogGroupDTO,
   ActivityLogGroupSetDTO,
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
@@ -21,6 +22,8 @@ class DataDTO {
   actor: Partial<ActivityLogUserDTO>;
   object: ActivityLogGroupSetDTO;
   changes: ActivityPropChangedDTO<Partial<ActivityLogGroupSetDTO>>;
+  addedGroups: ActivityLogGroupDTO[];
+  removedGroups: ActivityLogGroupDTO[];
 }
 
 export class UpdateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
@@ -43,6 +46,23 @@ export class UpdateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
     const { actor, originalState, currentState } = data;
 
+    const groupsInOriginalState = originalState.groups || [];
+    const groupsInCurrentState = currentState.groups || [];
+
+    const combinedGroupsMap = new Map<string, ActivityLogGroupDTO>(
+      [...groupsInOriginalState, ...groupsInCurrentState].map((group) => [group.id, group]),
+    );
+    const combinedGroupIds = [...combinedGroupsMap.keys()];
+
+    const groupIdsInOriginalState = groupsInOriginalState.map((group) => group.id);
+    const groupIdsInCurrentState = groupsInCurrentState.map((group) => group.id);
+    const addedGroups = combinedGroupIds
+      .filter((groupId) => !groupIdsInOriginalState.includes(groupId))
+      .map((groupId) => combinedGroupsMap.get(groupId));
+    const removedGroups = combinedGroupIds
+      .filter((groupId) => !groupIdsInCurrentState.includes(groupId))
+      .map((groupId) => combinedGroupsMap.get(groupId));
+
     return {
       eventTime,
       requestId,
@@ -56,6 +76,8 @@ export class UpdateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
         actor: { id: actor.id },
         object: currentState,
         changes: GetPropsChanged(originalState, currentState),
+        addedGroups,
+        removedGroups,
       },
     };
   }
