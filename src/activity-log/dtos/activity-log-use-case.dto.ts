@@ -48,6 +48,7 @@ export class ActivityLogGroupDTO {
       id: object.id,
       communityId: object.communityId,
       name: object.name,
+      level: object.level,
       privacy: object.privacy,
     });
   }
