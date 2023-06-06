@@ -22,6 +22,7 @@ type PayloadDTO = Omit<BasePayloadDTO<BadgeLogDto>, 'group' | 'community'>;
 
 type DataDTO = Omit<BaseDataDTO<BadgeLogDto>, 'group' | 'community'> & {
   changes: BadgeChanges;
+  badge?: ActivityLogBadgeDTO;
 };
 
 export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
@@ -74,9 +75,7 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
     };
   }
 
-  public toData(
-    objectData: Partial<ActivityLogObjectDataDTO>,
-  ): DataDTO & { badge: ActivityLogBadgeDTO } {
+  public toData(objectData: Partial<ActivityLogObjectDataDTO>): DataDTO {
     const { actorId, data, objectId } = this.document;
 
     return {
