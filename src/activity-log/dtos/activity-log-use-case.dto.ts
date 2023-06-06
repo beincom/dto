@@ -58,6 +58,7 @@ export class ActivityLogGroupSetDTO {
   id: string;
   communityId: string;
   name: string;
+  description: string;
   isDefault: boolean;
   groups: ActivityLogGroupDTO[];
 
