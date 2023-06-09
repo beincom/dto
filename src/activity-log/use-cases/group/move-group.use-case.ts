@@ -21,7 +21,7 @@ type MovedGroup = ActivityLogGroupDTO & { outer: ActivityLogGroupDTO };
 
 type PayloadDTO = Omit<BasePayloadDTO<MovedGroup>, 'community'>;
 
-type DataDTO = Omit<BaseDataDTO, 'community' | 'group'>;
+type DataDTO = Omit<BaseDataDTO<ActivityLogGroupDTO>, 'community' | 'group'> & { changes: Moved };
 
 export class MoveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
   static readonly useCase = ACTIVITY_LOG_USE_CASES.MOVE_GROUP;
