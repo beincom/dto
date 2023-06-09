@@ -26,6 +26,7 @@ export class ShowingBadgeDto {
   name: string;
   iconUrl: string;
   community?: CommunityInfo;
+  isNew?: boolean;
 }
 
 export class ShowingBadgesByUserIdMapDto {
