@@ -55,6 +55,7 @@ export class ArchiveUnarchiveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
       eventType: this.eventType,
       objectType: this.objectType,
       objectId: group.id,
+      groupId: group.id,
       data: {
         actor,
         group,
