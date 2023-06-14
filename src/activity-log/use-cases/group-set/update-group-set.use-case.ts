@@ -28,7 +28,7 @@ class DataDTO {
 
 export class UpdateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
   static readonly useCase = ACTIVITY_LOG_USE_CASES.UPDATE_GROUP_SET;
-  static readonly eventType = ACTIVITY_EVENT_TYPES.CREATE;
+  static readonly eventType = ACTIVITY_EVENT_TYPES.UPDATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.GROUP_SET;
 
   public static toPayload(data: PayloadDTO): ActivityLogPayloadDTO<PayloadDTO> {
