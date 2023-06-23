@@ -17,6 +17,7 @@ export enum ACTIVITY_LOG_USE_CASES {
 
   /** Group **/
   UPDATE_GROUP_PROFILE = 'update.group.profile',
+  UPDATE_GROUP_SETTINGS = 'update.group.settings',
   ARCHIVE_UNARCHIVE_GROUP = 'archive-unarchive.group',
   MOVE_GROUP = 'move.group',
 

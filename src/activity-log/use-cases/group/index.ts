@@ -5,3 +5,4 @@ export * from './cud-terms.use-case';
 export * from './decline-join-request.use-case';
 export * from './move-group.use-case';
 export * from './update-group-profile.use-case';
+export * from './update-group-settings.use-case';
