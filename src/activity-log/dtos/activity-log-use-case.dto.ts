@@ -117,6 +117,6 @@ export interface ChangeBaseDTO<T> {
   new: T;
 }
 
-export class ActivityPropChangedDTO<T = unknown> {
-  [propName: string]: ChangeBaseDTO<T>;
-}
+export type ActivityPropChangedDTO<T = unknown> = {
+  [k in keyof T]?: ChangeBaseDTO<T[k]>;
+};
