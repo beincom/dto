@@ -48,6 +48,7 @@ export class AddMemberToCommunityLog extends ActivityLogBaseUseCase<DataDTO> {
       eventType: this.eventType,
       objectType: this.objectType,
       communityId: community.id,
+      groupId: community.groupId,
       actorId: actor.id,
       objectId: user.id,
       data: {
