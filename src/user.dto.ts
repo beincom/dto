@@ -85,4 +85,10 @@ export class UserBasicInfo extends UserPublicInfoDto {
   username: string;
 }
 
+export enum USER_VISIBILITY_PRIVACY {
+  ONLY_ME = 'ONLY_ME',
+  COMMUNITY_MEMBERS = 'COMMUNITY_MEMBERS',
+  EVERYONE = 'EVERYONE',
+}
+
 export const SHARED_USER_KEY_PREFIX = 'SU';
