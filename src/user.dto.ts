@@ -63,7 +63,7 @@ export interface SharedUserDto {
   blockings: string[];
   groups: string[];
   showingBadges?: ShowingBadgeDto[];
-  settings?: UserSettingDto;
+  setting?: UserSettingDto;
 }
 
 export class UserSettingDto {
