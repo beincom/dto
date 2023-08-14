@@ -1,4 +1,4 @@
-import { BADGE_TYPE, SCHEME_SCOPE } from '../enums';
+import { BADGE_TYPE, INVITATION_TARGET, SCHEME_SCOPE } from '../enums';
 
 export type RequiredProps<T> = T & { [key: string]: any };
 
@@ -108,6 +108,26 @@ export class ActivityLogSchemeDTO {
       isSystem: object.isSystem,
       scope: object.scope,
       usedInsideCommId: object.usedInsideCommId,
+    });
+  }
+}
+
+export class InvitationLogDTO {
+  id: string;
+  communityId: string;
+  inviterId: string;
+  inviteeId: string;
+  targetType: INVITATION_TARGET;
+  targetId: string;
+
+  constructor(data: RequiredProps<InvitationLogDTO>) {
+    Object.assign(this, {
+      id: data.id,
+      communityId: data.communityId,
+      inviterId: data.inviterId,
+      inviteeId: data.inviteeId,
+      targetType: data.targetType,
+      targetId: data.targetId,
     });
   }
 }
