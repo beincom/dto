@@ -53,4 +53,10 @@ export enum ACTIVITY_LOG_USE_CASES {
   DELETE_GROUP_BADGE = 'delete.group_badge',
   ASSIGN_GROUP_BADGE = 'assign.group_badge',
   UNASSIGN_GROUP_BADGE = 'unassign.group_badge',
+
+  /** Invitation **/
+  CREATE_INVITATION = 'create.invitation',
+  CANCEL_INVITATION = 'cancel.invitation',
+  ACCEPT_INVITATION = 'accept.invitation',
+  DECLINE_INVITATION = 'decline.invitation',
 }
