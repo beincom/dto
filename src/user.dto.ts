@@ -23,6 +23,11 @@ export class ShowingBadgesByUserIdMapDto {
   [key: string]: ShowingBadgeDto[];
 }
 
+export class LatestWorkExperienceDto {
+  company: string;
+  titlePosition: string;
+}
+
 export class UserDto {
   id: string;
   username: string;
@@ -45,6 +50,8 @@ export class UserDto {
   relationshipStatus: USER_RELATIONSHIP_STATUS;
   isDeactivated: boolean;
   isVerified: boolean;
+
+  latestWork?: LatestWorkExperienceDto;
   showingBadges?: ShowingBadgeDto[];
 
   createdAt: Date;
