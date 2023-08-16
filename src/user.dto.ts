@@ -3,8 +3,8 @@ import {
   USER_INVITATION_PRIVACY,
   USER_RELATIONSHIP_STATUS,
   USER_STAFF_ROLE,
-  USER_VISIBILITY_PRIVACY
-} from "@beincom/constants";
+  USER_VISIBILITY_PRIVACY,
+} from '@beincom/constants';
 
 class CommunityInfo {
   id: string;
