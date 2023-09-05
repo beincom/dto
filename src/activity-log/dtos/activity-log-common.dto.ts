@@ -15,7 +15,6 @@ import {
 export class ActivityLogPayloadDTO<TPayload> {
   useCase: ACTIVITY_LOG_USE_CASES;
   eventTime: number;
-  requestId?: string;
   data: TPayload;
 }
 
@@ -25,10 +24,10 @@ export class ActivityLogPayloadDTO<TPayload> {
  * @template TData - The type of data contained in the document.
  */
 export class ActivityLogDocumentDTO<TData> {
+  id: string;
+  mainId: string;
   useCase: ACTIVITY_LOG_USE_CASES;
   eventTime: number;
-  requestId?: string;
-  rootUseCase?: string;
   actorId: string;
   communityId: string;
   groupId?: string;
@@ -36,6 +35,7 @@ export class ActivityLogDocumentDTO<TData> {
   objectType: ACTIVITY_OBJECT_TYPES;
   objectId: string;
   data: TData;
+  mainLog?: ActivityLogDocumentDTO<unknown>;
 }
 
 /**

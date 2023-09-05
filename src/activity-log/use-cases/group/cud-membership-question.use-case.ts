@@ -2,6 +2,7 @@ import {
   ActivityLogBaseUseCase,
   BaseDataDTO,
   BasePayloadDTO,
+  BasePayloadPropsDTO,
 } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
@@ -17,10 +18,9 @@ type QuestionStates = {
   isRequired: boolean;
 };
 
-type PayloadDTO = Pick<
-  BasePayloadDTO<QuestionStates>,
-  'actor' | 'group' | 'originalState' | 'currentState'
->;
+type PayloadDTO = BasePayloadPropsDTO &
+  Pick<BasePayloadDTO<QuestionStates>, 'group' | 'originalState' | 'currentState'>;
+
 type DataDTO = Pick<BaseDataDTO, 'actor' | 'group'> & {
   changes: { membershipQuestion: ChangeBaseDTO<QuestionStates> };
 };
@@ -47,17 +47,18 @@ export class BaseMembershipQuestionLog extends ActivityLogBaseUseCase<DataDTO> {
   public static toDocument(
     payload: ActivityLogPayloadDTO<PayloadDTO>,
   ): ActivityLogDocumentDTO<DataDTO> {
-    const { eventTime, requestId, data } = payload;
-    const { actor, group } = data;
+    const { eventTime, data } = payload;
+    const { id, mainId, actor, group } = data;
 
     return {
+      id,
+      mainId,
       eventTime,
-      requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      communityId: group.communityId,
       actorId: actor.id,
+      communityId: group.communityId,
       objectId: group.id,
       groupId: group.id,
       data: {

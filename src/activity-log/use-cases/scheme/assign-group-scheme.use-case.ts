@@ -2,6 +2,7 @@ import {
   ActivityLogBaseUseCase,
   BaseDataDTO,
   BasePayloadDTO,
+  BasePayloadPropsDTO,
 } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
@@ -18,10 +19,9 @@ import { GetPropsChanged } from '../../helpers';
 export type AssignSchemeState = ActivityLogSchemeDTO & {
   assigned: ActivityLogGroupDTO[];
 };
-type PayloadDTO = Pick<
-  BasePayloadDTO<AssignSchemeState>,
-  'actor' | 'community' | 'originalState' | 'currentState'
->[];
+type PayloadDTO = BasePayloadPropsDTO &
+  Pick<BasePayloadDTO<AssignSchemeState>, 'actor' | 'community' | 'originalState' | 'currentState'>;
+
 type DataDTO = Pick<BaseDataDTO<ActivityLogSchemeDTO>, 'actor' | 'community' | 'object'> & {
   changes: {
     assigned?: ChangeBaseDTO<AssignSchemeState['assigned']>;
@@ -41,31 +41,32 @@ export class AssignGroupSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
     };
   }
 
-  public static toDocument(
-    payload: ActivityLogPayloadDTO<PayloadDTO>,
-  ): ActivityLogDocumentDTO<DataDTO>[] {
-    const { eventTime, requestId, data } = payload;
+  public static toDocument({
+    eventTime,
+    data,
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { id, mainId, actor, community, originalState, currentState } = data;
 
-    return data.map(({ actor, community, originalState, currentState }) => {
-      const { assigned: originalAssigned } = originalState;
-      const { assigned: currentAssigned, ...restCurrentScheme } = currentState;
-      return {
-        useCase: this.useCase,
-        eventTime,
-        requestId,
-        actorId: actor.id,
-        communityId: community.id,
-        eventType: this.eventType,
-        objectType: this.objectType,
-        objectId: restCurrentScheme.id,
-        data: {
-          actor,
-          community,
-          object: restCurrentScheme,
-          changes: GetPropsChanged({ assigned: originalAssigned }, { assigned: currentAssigned }),
-        },
-      };
-    });
+    const { assigned: originalAssigned } = originalState;
+    const { assigned: currentAssigned, ...restCurrentScheme } = currentState;
+
+    return {
+      id,
+      mainId,
+      eventTime,
+      useCase: this.useCase,
+      eventType: this.eventType,
+      objectType: this.objectType,
+      actorId: actor.id,
+      communityId: community.id,
+      objectId: restCurrentScheme.id,
+      data: {
+        actor,
+        community,
+        object: restCurrentScheme,
+        changes: GetPropsChanged({ assigned: originalAssigned }, { assigned: currentAssigned }),
+      },
+    };
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {

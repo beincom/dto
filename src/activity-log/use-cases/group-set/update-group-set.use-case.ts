@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -12,8 +12,7 @@ import {
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 import { GetPropsChanged } from '../../helpers';
 
-class PayloadDTO {
-  actor: ActivityLogUserDTO;
+class PayloadDTO extends BasePayloadPropsDTO {
   originalState: ActivityLogGroupSetDTO;
   currentState: ActivityLogGroupSetDTO;
 }
@@ -41,10 +40,9 @@ export class UpdateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { actor, originalState, currentState } = data;
+    const { id, mainId, actor, originalState, currentState } = data;
 
     const groupsInOriginalState = originalState.groups || [];
     const groupsInCurrentState = currentState.groups || [];
@@ -64,13 +62,14 @@ export class UpdateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
       .map((groupId) => combinedGroupsMap.get(groupId));
 
     return {
+      id,
+      mainId,
       eventTime,
-      requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      communityId: currentState.communityId,
       actorId: actor.id,
+      communityId: currentState.communityId,
       objectId: currentState.id,
       data: {
         actor: { id: actor.id },

@@ -1,4 +1,8 @@
-import { ActivityLogBaseUseCase, BaseDataDTO } from '../../activity-log-base-use-case.dto';
+import {
+  ActivityLogBaseUseCase,
+  BaseDataDTO,
+  BasePayloadPropsDTO,
+} from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupSetDTO,
@@ -8,7 +12,8 @@ import {
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
-type PayloadDTO = Pick<BaseDataDTO<ActivityLogGroupSetDTO>, 'actor' | 'object'>;
+type PayloadDTO = BasePayloadPropsDTO &
+  Pick<BaseDataDTO<ActivityLogGroupSetDTO>, 'actor' | 'object'>;
 
 type DataDTO = Pick<BaseDataDTO<ActivityLogGroupSetDTO>, 'actor' | 'object'>;
 
@@ -34,19 +39,19 @@ export class CreateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { actor, object } = data;
+    const { id, mainId, actor, object } = data;
 
     return {
+      id,
+      mainId,
       eventTime,
-      requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      communityId: object.communityId,
       actorId: actor.id,
+      communityId: object.communityId,
       objectId: object.id,
       data: {
         actor: { id: actor.id },

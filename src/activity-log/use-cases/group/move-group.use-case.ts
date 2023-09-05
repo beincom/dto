@@ -2,6 +2,7 @@ import {
   ActivityLogBaseUseCase,
   BaseDataDTO,
   BasePayloadDTO,
+  BasePayloadPropsDTO,
 } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
@@ -19,7 +20,7 @@ type Moved = {
 };
 type MovedGroup = ActivityLogGroupDTO & { outer: ActivityLogGroupDTO };
 
-type PayloadDTO = Omit<BasePayloadDTO<MovedGroup>, 'community'>;
+type PayloadDTO = BasePayloadPropsDTO & Omit<BasePayloadDTO<MovedGroup>, 'community'>;
 
 type DataDTO = Omit<BaseDataDTO<ActivityLogGroupDTO>, 'community' | 'group'> & { changes: Moved };
 
@@ -40,15 +41,17 @@ export class MoveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     eventTime,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { actor, group, originalState, currentState } = data;
+    const { id, mainId, actor, group, originalState, currentState } = data;
 
     return {
-      useCase: this.useCase,
+      id,
+      mainId,
       eventTime,
-      actorId: actor.id,
-      communityId: group.communityId,
+      useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
+      actorId: actor.id,
+      communityId: group.communityId,
       objectId: group.id,
       groupId: group.id,
       data: {

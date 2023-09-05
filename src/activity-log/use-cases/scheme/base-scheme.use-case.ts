@@ -2,6 +2,7 @@ import {
   ActivityLogBaseUseCase,
   BaseDataDTO,
   BasePayloadDTO,
+  BasePayloadPropsDTO,
 } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
@@ -24,10 +25,8 @@ export type SchemeState = ActivityLogSchemeDTO & {
   }[];
 };
 
-type PayloadDTO = Pick<
-  BasePayloadDTO<SchemeState>,
-  'actor' | 'community' | 'originalState' | 'currentState'
->;
+type PayloadDTO = BasePayloadPropsDTO &
+  Pick<BasePayloadDTO<SchemeState>, 'community' | 'originalState' | 'currentState'>;
 type DataDTO = Pick<BaseDataDTO<ActivityLogSchemeDTO>, 'actor' | 'community' | 'object'> & {
   changes: {
     id?: ChangeBaseDTO<SchemeState['id']>;
@@ -64,17 +63,18 @@ export class BaseSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
   public static toDocument(
     payload: ActivityLogPayloadDTO<PayloadDTO>,
   ): ActivityLogDocumentDTO<DataDTO> {
-    const { eventTime, requestId, data } = payload;
-    const { actor, community, originalState, currentState } = data;
+    const { eventTime, data } = payload;
+    const { id, mainId, actor, community, originalState, currentState } = data;
 
     return {
-      useCase: this.useCase,
+      id,
+      mainId,
       eventTime,
-      requestId,
-      actorId: actor.id,
-      communityId: community.id,
+      useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
+      actorId: actor.id,
+      communityId: community.id,
       objectId: this.eventType === ACTIVITY_EVENT_TYPES.DELETE ? originalState.id : currentState.id,
       data: {
         actor,

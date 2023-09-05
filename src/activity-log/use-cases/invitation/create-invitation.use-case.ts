@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -15,9 +15,8 @@ import {
   INVITATION_TARGET,
 } from '../../enums';
 
-type PayloadDTO = {
-  actor: ActivityLogUserDTO;
-  invitations: InvitationLogDTO[];
+type PayloadDTO = BasePayloadPropsDTO & {
+  invitation: InvitationLogDTO;
 };
 
 type DataDTO = {
@@ -44,27 +43,27 @@ export class CreateInvitationLog extends ActivityLogBaseUseCase<DataDTO> {
   public static toDocument({
     eventTime,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
-    const { actor, invitations } = data;
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { id, mainId, actor, invitation } = data;
 
-    return invitations.map((invitation) => {
-      const isGroupType = invitation.targetType === INVITATION_TARGET.GROUP;
+    const isGroupType = invitation.targetType === INVITATION_TARGET.GROUP;
 
-      return {
-        useCase: this.useCase,
-        eventTime,
-        actorId: actor.id,
-        communityId: invitation.communityId,
-        groupId: isGroupType ? invitation.targetId : undefined,
-        eventType: this.eventType,
-        objectType: this.objectType,
-        objectId: invitation.inviteeId,
-        data: {
-          actor,
-          invitation,
-        },
-      };
-    });
+    return {
+      id,
+      mainId,
+      eventTime,
+      useCase: this.useCase,
+      eventType: this.eventType,
+      objectType: this.objectType,
+      actorId: actor.id,
+      communityId: invitation.communityId,
+      groupId: isGroupType ? invitation.targetId : undefined,
+      objectId: invitation.inviteeId,
+      data: {
+        actor,
+        invitation,
+      },
+    };
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {

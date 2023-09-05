@@ -10,9 +10,13 @@ import {
 } from './dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from './enums';
 
-export class BasePayloadDTO<T = object> {
-  rootUseCase: ACTIVITY_LOG_USE_CASES;
+export class BasePayloadPropsDTO {
+  id: string;
+  mainId: string;
   actor: ActivityLogUserDTO;
+}
+
+export class BasePayloadDTO<T = object> extends BasePayloadPropsDTO {
   community: ActivityLogCommunityDTO;
   group: ActivityLogGroupDTO;
   originalState: T;
