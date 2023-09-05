@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -21,12 +21,12 @@ export type GroupSettingsState = {
   [k in SettingKey]?: boolean;
 };
 
-class PayloadDTO {
-  actor: ActivityLogUserDTO;
+class PayloadDTO extends BasePayloadPropsDTO {
   group: Group;
   originalState: GroupSettingsState;
   currentState: GroupSettingsState;
 }
+
 type Group = ActivityLogGroupDTO & { settings: GroupSettingsState };
 class DataDTO {
   actor: Partial<ActivityLogUserDTO>;
@@ -50,20 +50,21 @@ export class UpdateGroupSettingsLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { actor, group } = data;
+    const { id, mainId, actor, group } = data;
     const groupLogDto = new ActivityLogGroupDTO(data.group);
     const groupWithSettings = { ...groupLogDto, settings: group.settings };
+
     return {
+      id,
+      mainId,
       eventTime,
-      requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      communityId: group.communityId,
       actorId: actor.id,
+      communityId: group.communityId,
       objectId: group.id,
       groupId: group.id,
       data: {

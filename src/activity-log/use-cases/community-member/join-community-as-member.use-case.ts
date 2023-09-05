@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogCommunityDTO,
   ActivityLogDocumentDTO,
@@ -9,8 +9,7 @@ import {
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
-class PayloadDTO {
-  actor: ActivityLogUserDTO;
+class PayloadDTO extends BasePayloadPropsDTO {
   community: ActivityLogCommunityDTO;
 }
 
@@ -34,20 +33,20 @@ export class JoinCommunityAsMemberLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { actor, community } = data;
+    const { id, mainId, actor, community } = data;
 
     return {
+      id,
+      mainId,
       eventTime,
-      requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
+      actorId: actor.id,
       communityId: community.id,
       groupId: community.groupId,
-      actorId: actor.id,
       objectId: actor.id,
       data: {
         actor: { id: actor.id },

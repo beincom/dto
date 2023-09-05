@@ -2,6 +2,7 @@ import {
   ActivityLogBaseUseCase,
   BaseDataDTO,
   BasePayloadDTO,
+  BasePayloadPropsDTO,
 } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogBadgeDTO,
@@ -18,7 +19,7 @@ import { GetPropsChanged } from '../../helpers';
 export type BadgeLogDto = ActivityLogBadgeDTO & { assignedTo?: ActivityLogGroupDTO };
 type BadgeChanges = ActivityPropChangedDTO<BadgeLogDto>;
 
-type PayloadDTO = Omit<BasePayloadDTO<BadgeLogDto>, 'group' | 'community'>;
+type PayloadDTO = BasePayloadPropsDTO & Omit<BasePayloadDTO<BadgeLogDto>, 'group' | 'community'>;
 
 type DataDTO = Omit<BaseDataDTO<BadgeLogDto>, 'group' | 'community'> & {
   changes: BadgeChanges;
@@ -43,7 +44,7 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
     data,
     useCase,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { actor, originalState, currentState } = data;
+    const { id, mainId, actor, originalState, currentState } = data;
     const isNotUpdate = [
       ACTIVITY_LOG_USE_CASES.CREATE_GROUP_BADGE,
       ACTIVITY_LOG_USE_CASES.DELETE_GROUP_BADGE,
@@ -51,12 +52,14 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
     const loggedBadge = originalState.id ? originalState : currentState;
 
     return {
-      useCase: this.useCase,
+      id,
+      mainId,
       eventTime,
-      actorId: actor.id,
-      communityId: loggedBadge.communityId,
+      useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
+      actorId: actor.id,
+      communityId: loggedBadge.communityId,
       objectId: currentState.id ?? originalState.id,
       data: {
         actor,

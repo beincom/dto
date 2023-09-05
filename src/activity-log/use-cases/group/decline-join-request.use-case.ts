@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -9,9 +9,9 @@ import {
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
-class PayloadDTO {
+class PayloadDTO extends BasePayloadPropsDTO {
   actor: ActivityLogUserDTO;
-  users: ActivityLogUserDTO[];
+  user: ActivityLogUserDTO;
   group: ActivityLogGroupDTO;
 }
 
@@ -36,19 +36,19 @@ export class DeclineJoinRequestLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
-    const { actor, users, group } = data;
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { id, mainId, actor, user, group } = data;
 
-    return users.map((user) => ({
+    return {
+      id,
+      mainId,
       eventTime,
-      requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      communityId: group.communityId,
       actorId: actor.id,
+      communityId: group.communityId,
       objectId: user.id,
       groupId: group.id,
       data: {
@@ -56,7 +56,7 @@ export class DeclineJoinRequestLog extends ActivityLogBaseUseCase<DataDTO> {
         user: { id: user.id },
         group,
       },
-    }));
+    };
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {

@@ -1,6 +1,6 @@
 import { ROLE_TYPE } from '@beincom/constants';
 
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -11,9 +11,8 @@ import {
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
-class PayloadDTO {
-  actor: ActivityLogUserDTO;
-  users: ActivityLogUserDTO[];
+class PayloadDTO extends BasePayloadPropsDTO {
+  user: ActivityLogUserDTO;
   group: ActivityLogGroupDTO;
   originalState: ROLE_TYPE;
   currentState: ROLE_TYPE;
@@ -46,19 +45,19 @@ export class AssignGroupAdminLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
-    const { actor, users, group } = data;
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { id, mainId, actor, user, group } = data;
 
-    return users.map((user) => ({
+    return {
+      id,
+      mainId,
       eventTime,
-      requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      communityId: group.communityId,
       actorId: actor.id,
+      communityId: group.communityId,
       objectId: user.id,
       groupId: group.id,
       data: {
@@ -70,7 +69,7 @@ export class AssignGroupAdminLog extends ActivityLogBaseUseCase<DataDTO> {
           new: data.currentState,
         },
       },
-    }));
+    };
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {

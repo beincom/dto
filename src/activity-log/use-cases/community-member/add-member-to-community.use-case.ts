@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogCommunityDTO,
   ActivityLogDocumentDTO,
@@ -9,9 +9,8 @@ import {
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
-class PayloadDTO {
-  actor: ActivityLogUserDTO;
-  users: ActivityLogUserDTO[];
+class PayloadDTO extends BasePayloadPropsDTO {
+  user: ActivityLogUserDTO;
   community: ActivityLogCommunityDTO;
 }
 
@@ -36,27 +35,27 @@ export class AddMemberToCommunityLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
-    const { actor, users, community } = data;
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { id, mainId, actor, user, community } = data;
 
-    return users.map((user) => ({
+    return {
+      id,
+      mainId,
       eventTime,
-      requestId,
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
+      actorId: actor.id,
       communityId: community.id,
       groupId: community.groupId,
-      actorId: actor.id,
       objectId: user.id,
       data: {
         actor: { id: actor.id },
         user: { id: user.id },
         community,
       },
-    }));
+    };
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {

@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -15,8 +15,7 @@ import {
   INVITATION_TARGET,
 } from '../../enums';
 
-type PayloadDTO = {
-  actor?: ActivityLogUserDTO;
+type PayloadDTO = BasePayloadPropsDTO & {
   invitation: InvitationLogDTO;
 };
 
@@ -45,18 +44,20 @@ export class BaseInvitationActionLog extends ActivityLogBaseUseCase<DataDTO> {
     eventTime,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { actor, invitation } = data;
+    const { id, mainId, actor, invitation } = data;
 
     const isGroupType = data.invitation.targetType === INVITATION_TARGET.GROUP;
 
     return {
-      useCase: this.useCase,
+      id,
+      mainId,
       eventTime,
+      useCase: this.useCase,
+      eventType: this.eventType,
+      objectType: this.objectType,
       actorId: actor ? actor.id : undefined,
       communityId: invitation.communityId,
       groupId: isGroupType ? invitation.targetId : undefined,
-      eventType: this.eventType,
-      objectType: this.objectType,
       objectId: invitation.inviteeId,
       data: {
         actor,

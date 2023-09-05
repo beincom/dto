@@ -2,7 +2,9 @@ import { ActivityLogObjectIdDTO, ActivityResponseDto } from '../dtos';
 import { ACTIVITY_LOG_USE_CASES } from '../enums';
 import { ActivityLogUseCaseClassesMap } from '../index';
 
-export function getAllObjectIdFromLogs(logs: ActivityResponseDto[]): ActivityLogObjectIdDTO {
+export function getAllObjectIdFromLogs(
+  logs: ActivityResponseDto[],
+): Required<ActivityLogObjectIdDTO> {
   const setOfUserIds: Set<string> = new Set();
   const setOfCommunityIds: Set<string> = new Set();
   const setOfGroupIds: Set<string> = new Set();

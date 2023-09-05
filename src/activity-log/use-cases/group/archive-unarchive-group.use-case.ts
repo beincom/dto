@@ -2,6 +2,7 @@ import {
   ActivityLogBaseUseCase,
   BaseDataDTO,
   BasePayloadDTO,
+  BasePayloadPropsDTO,
 } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
@@ -18,10 +19,12 @@ export type ArchiveUnArchiveGroupState = {
   archivedStatus: boolean;
 };
 
-type PayloadDTO = Pick<
-  BasePayloadDTO<ArchiveUnArchiveGroupState>,
-  'actor' | 'group' | 'originalState' | 'currentState'
->[];
+type PayloadDTO = BasePayloadPropsDTO &
+  Pick<
+    BasePayloadDTO<ArchiveUnArchiveGroupState>,
+    'actor' | 'group' | 'originalState' | 'currentState'
+  >;
+
 type DataDTO = Pick<BaseDataDTO<ActivityLogGroupDTO>, 'actor' | 'group' | 'object'> & {
   changes: {
     archivedStatus?: ChangeBaseDTO<ArchiveUnArchiveGroupState['archivedStatus']>;
@@ -41,19 +44,21 @@ export class ArchiveUnarchiveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     };
   }
 
-  public static toDocument(
-    payload: ActivityLogPayloadDTO<PayloadDTO>,
-  ): ActivityLogDocumentDTO<DataDTO>[] {
-    const { eventTime, requestId, data } = payload;
+  public static toDocument({
+    eventTime,
+    data,
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { id, mainId, actor, group, originalState, currentState } = data;
 
-    return data.map(({ actor, group, originalState, currentState }) => ({
-      useCase: this.useCase,
+    return {
+      id,
+      mainId,
       eventTime,
-      requestId,
-      actorId: actor.id,
-      communityId: group.communityId,
+      useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
+      actorId: actor.id,
+      communityId: group.communityId,
       objectId: group.id,
       groupId: group.id,
       data: {
@@ -62,7 +67,7 @@ export class ArchiveUnarchiveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
         object: group,
         changes: GetPropsChanged(originalState, currentState),
       },
-    }));
+    };
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {

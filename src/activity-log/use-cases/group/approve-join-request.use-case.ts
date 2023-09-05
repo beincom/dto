@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -8,13 +8,10 @@ import {
   ActivityLogUserDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
-import { AddMemberToGroupLog } from '../group-member';
 
-class PayloadDTO {
-  actor: ActivityLogUserDTO;
-  users: ActivityLogUserDTO[];
-  groups: ActivityLogGroupDTO[];
-  outerGroups: ActivityLogGroupDTO[];
+class PayloadDTO extends BasePayloadPropsDTO {
+  user: ActivityLogUserDTO;
+  group: ActivityLogGroupDTO;
 }
 
 class DataDTO {
@@ -38,46 +35,27 @@ export class ApproveJoinRequestLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
-    const { actor, users, groups, outerGroups } = data;
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { id, mainId, actor, user, group } = data;
 
-    const documents: ActivityLogDocumentDTO<DataDTO>[] = [];
-
-    for (const user of users) {
-      for (const group of groups) {
-        documents.push({
-          eventTime,
-          requestId,
-          useCase: this.useCase,
-          eventType: this.eventType,
-          objectType: this.objectType,
-          communityId: group.communityId,
-          actorId: actor.id,
-          objectId: user.id,
-          groupId: group.id,
-          data: {
-            actor: { id: actor.id },
-            user: { id: user.id },
-            group,
-          },
-        });
-      }
-    }
-
-    if (outerGroups.length > 0) {
-      const addMemberToGroupPayload = AddMemberToGroupLog.toPayload({
-        actor,
-        users,
-        groups: outerGroups,
-      });
-      const addMemberToGroupDocuments = AddMemberToGroupLog.toDocument(addMemberToGroupPayload);
-
-      documents.push(...addMemberToGroupDocuments);
-    }
-
-    return documents;
+    return {
+      id,
+      mainId,
+      eventTime,
+      useCase: this.useCase,
+      eventType: this.eventType,
+      objectType: this.objectType,
+      actorId: actor.id,
+      communityId: group.communityId,
+      objectId: user.id,
+      groupId: group.id,
+      data: {
+        actor: { id: actor.id },
+        user: { id: user.id },
+        group,
+      },
+    };
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {

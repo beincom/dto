@@ -1,4 +1,4 @@
-import { ActivityLogBaseUseCase } from '../../activity-log-base-use-case.dto';
+import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
@@ -9,10 +9,10 @@ import {
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
-class PayloadDTO {
+class PayloadDTO extends BasePayloadPropsDTO {
   actor: ActivityLogUserDTO;
-  users: ActivityLogUserDTO[];
-  groups: ActivityLogGroupDTO[];
+  user: ActivityLogUserDTO;
+  group: ActivityLogGroupDTO;
 }
 
 class DataDTO {
@@ -39,34 +39,27 @@ export class AddMemberToGroupLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public static toDocument({
     eventTime,
-    requestId,
     data,
-  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO>[] {
-    const documents: ActivityLogDocumentDTO<DataDTO>[] = [];
-    const { actor, users, groups } = data;
+  }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
+    const { id, mainId, actor, user, group } = data;
 
-    for (const user of users) {
-      for (const group of groups) {
-        documents.push({
-          eventTime,
-          requestId,
-          useCase: this.useCase,
-          eventType: this.eventType,
-          objectType: this.objectType,
-          communityId: group.communityId,
-          actorId: actor.id,
-          objectId: user.id,
-          groupId: group.id,
-          data: {
-            actor: { id: actor.id },
-            user: { id: user.id },
-            group,
-          },
-        });
-      }
-    }
-
-    return documents;
+    return {
+      id,
+      mainId,
+      eventTime,
+      useCase: this.useCase,
+      eventType: this.eventType,
+      objectType: this.objectType,
+      actorId: actor.id,
+      communityId: group.communityId,
+      objectId: user.id,
+      groupId: group.id,
+      data: {
+        actor: { id: actor.id },
+        user: { id: user.id },
+        group,
+      },
+    };
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {
