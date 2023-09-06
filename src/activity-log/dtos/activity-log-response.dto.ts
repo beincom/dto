@@ -2,6 +2,7 @@ import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } f
 
 export class ActivityResponseDto {
   id: string;
+  mainId: string;
   useCase: ACTIVITY_LOG_USE_CASES;
   actorId?: string;
   communityId: string;
@@ -11,6 +12,7 @@ export class ActivityResponseDto {
   objectType: ACTIVITY_OBJECT_TYPES;
   objectId: string;
   data: Record<string, any>;
+  mainLog?: ActivityResponseDto;
 }
 
 export class ActivityPaginationResponseDto {
