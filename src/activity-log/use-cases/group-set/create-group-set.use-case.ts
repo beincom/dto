@@ -50,11 +50,11 @@ export class CreateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      actorId: actor.id,
+      actorId: actor ? actor.id : undefined,
       communityId: object.communityId,
       objectId: object.id,
       data: {
-        actor: { id: actor.id },
+        actor: actor ? { id: actor.id } : null,
         object,
       },
     };
@@ -64,7 +64,7 @@ export class CreateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
     const { actorId } = this.document;
 
     return {
-      userIds: [actorId],
+      userIds: [actorId].filter((id) => id),
     };
   }
 

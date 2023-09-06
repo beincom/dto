@@ -68,11 +68,11 @@ export class UpdateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      actorId: actor.id,
+      actorId: actor ? actor.id : undefined,
       communityId: currentState.communityId,
       objectId: currentState.id,
       data: {
-        actor: { id: actor.id },
+        actor: actor ? { id: actor.id } : null,
         object: currentState,
         changes: GetPropsChanged(originalState, currentState),
         addedGroups,
@@ -85,7 +85,7 @@ export class UpdateGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
     const { actorId } = this.document;
 
     return {
-      userIds: [actorId],
+      userIds: [actorId].filter((id) => id),
     };
   }
 

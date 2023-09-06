@@ -58,7 +58,7 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      actorId: actor.id,
+      actorId: actor ? actor.id : undefined,
       communityId: loggedBadge.communityId,
       objectId: currentState.id ?? originalState.id,
       data: {
@@ -72,8 +72,9 @@ export class CreateBadgeLog extends ActivityLogBaseUseCase<DataDTO> {
   }
 
   public toObjectIds(): ActivityLogObjectIdDTO {
+    const actorId = this.document.actorId;
     return {
-      userIds: [this.document.actorId],
+      userIds: actorId ? [actorId] : [],
       badgeIds: [this.document.objectId],
     };
   }

@@ -45,7 +45,7 @@ export class LeaveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      actorId: actor.id,
+      actorId: actor ? actor.id : undefined,
       communityId: group.communityId,
       objectId: actor.id,
       groupId: group.id,
@@ -60,7 +60,7 @@ export class LeaveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     const { actorId } = this.document;
 
     return {
-      userIds: [actorId],
+      userIds: [actorId].filter((id) => id),
     };
   }
 

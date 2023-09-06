@@ -57,7 +57,7 @@ export class AssignGroupSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      actorId: actor.id,
+      actorId: actor ? actor.id : undefined,
       communityId: community.id,
       objectId: restCurrentScheme.id,
       data: {
@@ -73,7 +73,7 @@ export class AssignGroupSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
     const { actorId } = this.document;
 
     return {
-      userIds: [actorId],
+      userIds: [actorId].filter((id) => id),
     };
   }
 

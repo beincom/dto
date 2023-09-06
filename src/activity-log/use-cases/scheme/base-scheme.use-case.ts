@@ -73,7 +73,7 @@ export class BaseSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      actorId: actor.id,
+      actorId: actor ? actor.id : undefined,
       communityId: community.id,
       objectId: this.eventType === ACTIVITY_EVENT_TYPES.DELETE ? originalState.id : currentState.id,
       data: {
@@ -89,7 +89,7 @@ export class BaseSchemeLog extends ActivityLogBaseUseCase<DataDTO> {
     const { actorId } = this.document;
 
     return {
-      userIds: [actorId],
+      userIds: [actorId].filter((id) => id),
     };
   }
 

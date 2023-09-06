@@ -56,11 +56,11 @@ export class AssignCommunityAdminsLog extends ActivityLogBaseUseCase<DataDTO> {
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      actorId: actor.id,
+      actorId: actor ? actor.id : undefined,
       communityId: community.id,
       objectId: user.id,
       data: {
-        actor: { id: actor.id },
+        actor: actor ? { id: actor.id } : null,
         user: { id: user.id },
         community,
         changes: {
@@ -75,7 +75,7 @@ export class AssignCommunityAdminsLog extends ActivityLogBaseUseCase<DataDTO> {
     const { actorId, data } = this.document;
 
     return {
-      userIds: [actorId, data.user.id],
+      userIds: [actorId, data.user.id].filter((id) => id),
     };
   }
 
