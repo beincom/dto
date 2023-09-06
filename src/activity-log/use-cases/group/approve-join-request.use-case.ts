@@ -46,12 +46,12 @@ export class ApproveJoinRequestLog extends ActivityLogBaseUseCase<DataDTO> {
       useCase: this.useCase,
       eventType: this.eventType,
       objectType: this.objectType,
-      actorId: actor.id,
+      actorId: actor ? actor.id : undefined,
       communityId: group.communityId,
       objectId: user.id,
       groupId: group.id,
       data: {
-        actor: { id: actor.id },
+        actor: actor ? { id: actor.id } : null,
         user: { id: user.id },
         group,
       },
@@ -62,7 +62,7 @@ export class ApproveJoinRequestLog extends ActivityLogBaseUseCase<DataDTO> {
     const { actorId, data } = this.document;
 
     return {
-      userIds: [actorId, data.user.id],
+      userIds: [actorId, data.user.id].filter((id) => id),
     };
   }
 
