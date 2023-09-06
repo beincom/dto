@@ -9,6 +9,7 @@ export function getAllObjectIdFromLogs(
   const setOfCommunityIds: Set<string> = new Set();
   const setOfGroupIds: Set<string> = new Set();
   const setOfBadgeIds: Set<string> = new Set();
+  const setOfGroupSetIds: Set<string> = new Set();
 
   for (const log of logs) {
     const useCase: ACTIVITY_LOG_USE_CASES = log.useCase;
@@ -20,10 +21,12 @@ export function getAllObjectIdFromLogs(
         groupIds = [],
         badgeIds = [],
         communityIds = [],
+        groupSetIds = [],
       }: ActivityLogObjectIdDTO = instance.toObjectIds();
 
       userIds.forEach((id: string) => id && setOfUserIds.add(id));
       groupIds.forEach((id: string) => id && setOfGroupIds.add(id));
+      groupSetIds.forEach((id: string) => id && setOfGroupSetIds.add(id));
       badgeIds.forEach((id: string) => id && setOfBadgeIds.add(id));
       communityIds.forEach((id: string) => id && setOfCommunityIds.add(id));
     }
@@ -34,5 +37,6 @@ export function getAllObjectIdFromLogs(
     groupIds: Array.from(setOfGroupIds) as string[],
     badgeIds: Array.from(setOfBadgeIds) as string[],
     communityIds: Array.from(setOfCommunityIds) as string[],
+    groupSetIds: Array.from(setOfGroupSetIds) as string[],
   };
 }

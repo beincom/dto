@@ -4,6 +4,7 @@ import {
   ActivityLogBadgeDTO,
   ActivityLogCommunityDTO,
   ActivityLogGroupDTO,
+  ActivityLogGroupSetDTO,
   ActivityLogUserDTO,
 } from './activity-log-use-case.dto';
 
@@ -47,6 +48,7 @@ export class ActivityLogObjectIdDTO {
   groupIds?: string[];
   communityIds?: string[];
   badgeIds?: string[];
+  groupSetIds?: string[];
 }
 
 /**
@@ -58,4 +60,5 @@ export class ActivityLogObjectDataDTO {
   groups: Record<string, ActivityLogGroupDTO>;
   communities: Record<string, ActivityLogCommunityDTO>;
   badges?: Record<string, ActivityLogBadgeDTO>;
+  groupSets?: Record<string, ActivityLogGroupSetDTO>;
 }

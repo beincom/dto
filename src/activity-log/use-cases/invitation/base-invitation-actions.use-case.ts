@@ -2,6 +2,7 @@ import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-
 import {
   ActivityLogDocumentDTO,
   ActivityLogGroupDTO,
+  ActivityLogGroupSetDTO,
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
@@ -25,6 +26,7 @@ type DataDTO = {
   inviter?: Partial<ActivityLogUserDTO>;
   invitee?: Partial<ActivityLogUserDTO>;
   group?: ActivityLogGroupDTO;
+  groupSet?: ActivityLogGroupSetDTO;
 };
 
 export class BaseInvitationActionLog extends ActivityLogBaseUseCase<DataDTO> {
@@ -68,22 +70,26 @@ export class BaseInvitationActionLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public toObjectIds(): ActivityLogObjectIdDTO {
     const { actorId, data, groupId } = this.document;
-
+    const targetId = data.invitation.targetId;
     return {
       userIds: [actorId, data.invitation.inviterId, data.invitation.inviteeId].filter((id) => id),
       groupIds: groupId ? [groupId] : [],
+      groupSetIds:
+        data.invitation.targetType === INVITATION_TARGET.GROUP_SET ? [targetId] : undefined,
     };
   }
 
   public toData(objectData: ActivityLogObjectDataDTO): DataDTO {
-    const { actorId, groupId, data } = this.document;
+    const { actorId, data } = this.document;
+    const targetId = data.invitation.targetId;
 
     return {
       ...data,
       actor: objectData.users[actorId],
       inviter: objectData.users[data.invitation.inviterId],
       invitee: objectData.users[data.invitation.inviteeId],
-      group: objectData.groups[groupId],
+      group: objectData.groups[targetId],
+      groupSet: objectData.groupSets[targetId],
     };
   }
 }
