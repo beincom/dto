@@ -18,6 +18,8 @@ import {
 
 type PayloadDTO = BasePayloadPropsDTO & {
   invitation: InvitationLogDTO;
+  group: ActivityLogGroupDTO;
+  groupSet: ActivityLogGroupSetDTO;
 };
 
 type DataDTO = {
@@ -25,8 +27,8 @@ type DataDTO = {
   invitation: InvitationLogDTO;
   inviter?: Partial<ActivityLogUserDTO>;
   invitee?: Partial<ActivityLogUserDTO>;
-  group?: ActivityLogGroupDTO;
-  groupSet?: ActivityLogGroupSetDTO;
+  group: ActivityLogGroupDTO;
+  groupSet: ActivityLogGroupSetDTO;
 };
 
 export class BaseInvitationActionLog extends ActivityLogBaseUseCase<DataDTO> {
@@ -64,6 +66,8 @@ export class BaseInvitationActionLog extends ActivityLogBaseUseCase<DataDTO> {
       data: {
         actor,
         invitation,
+        group: data.group,
+        groupSet: data.groupSet,
       },
     };
   }
@@ -81,15 +85,12 @@ export class BaseInvitationActionLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public toData(objectData: ActivityLogObjectDataDTO): DataDTO {
     const { actorId, data } = this.document;
-    const targetId = data.invitation.targetId;
 
     return {
       ...data,
       actor: objectData.users[actorId],
       inviter: objectData.users[data.invitation.inviterId],
       invitee: objectData.users[data.invitation.inviteeId],
-      group: objectData.groups[targetId],
-      groupSet: objectData.groupSets[targetId],
     };
   }
 }
