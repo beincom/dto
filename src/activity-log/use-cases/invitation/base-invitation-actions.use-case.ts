@@ -85,9 +85,18 @@ export class BaseInvitationActionLog extends ActivityLogBaseUseCase<DataDTO> {
 
   public toData(objectData: ActivityLogObjectDataDTO): DataDTO {
     const { actorId, data } = this.document;
+    const isGroupType = data.invitation.targetType === INVITATION_TARGET.GROUP;
+    const bindingTarget = {} as Pick<DataDTO, 'group' | 'groupSet'>;
+
+    if (isGroupType) {
+      bindingTarget.group = data.group || objectData.groups[data.invitation.targetId];
+    } else {
+      bindingTarget.groupSet = data.groupSet || objectData.groupSets[data.invitation.targetId];
+    }
 
     return {
       ...data,
+      ...bindingTarget,
       actor: objectData.users[actorId],
       inviter: objectData.users[data.invitation.inviterId],
       invitee: objectData.users[data.invitation.inviteeId],
