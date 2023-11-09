@@ -54,6 +54,8 @@ export class UserDto {
   latestWork?: LatestWorkExperienceDto;
   showingBadges?: ShowingBadgeDto[];
 
+  shouldCreatePwd?: boolean;
+
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
