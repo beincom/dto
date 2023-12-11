@@ -1,4 +1,5 @@
 import {
+  INTEREST,
   USER_GENDER,
   USER_INVITATION_PRIVACY,
   USER_RELATIONSHIP_STATUS,
@@ -55,6 +56,8 @@ export class UserDto {
   showingBadges?: ShowingBadgeDto[];
 
   shouldCreatePwd?: boolean;
+
+  interests?: INTEREST[];
 
   createdAt: Date;
   updatedAt: Date;
