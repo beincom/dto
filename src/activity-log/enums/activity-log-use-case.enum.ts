@@ -16,6 +16,7 @@ export enum ACTIVITY_LOG_USE_CASES {
   DECLINE_JOIN_REQUEST = 'decline.join_request',
 
   /** Group **/
+  CREATE_GROUP = 'create.group',
   UPDATE_GROUP_PROFILE = 'update.group.profile',
   UPDATE_GROUP_SETTINGS = 'update.group.settings',
   ARCHIVE_UNARCHIVE_GROUP = 'archive-unarchive.group',
