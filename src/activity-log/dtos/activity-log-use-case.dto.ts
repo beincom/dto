@@ -1,4 +1,5 @@
-import { BADGE_TYPE, INVITATION_TARGET, SCHEME_SCOPE } from '../enums';
+import { INVITATION_TARGET } from '../../invitation.dto';
+import { BADGE_TYPE, SCHEME_SCOPE } from '../enums';
 
 export type RequiredProps<T> = T & { [key: string]: any };
 

@@ -1,3 +1,4 @@
+import { INVITATION_TARGET } from '../../../invitation.dto';
 import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
@@ -9,12 +10,7 @@ import {
   ActivityLogUserDTO,
   InvitationLogDTO,
 } from '../../dtos';
-import {
-  ACTIVITY_EVENT_TYPES,
-  ACTIVITY_LOG_USE_CASES,
-  ACTIVITY_OBJECT_TYPES,
-  INVITATION_TARGET,
-} from '../../enums';
+import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
 type PayloadDTO = BasePayloadPropsDTO & {
   invitation: InvitationLogDTO;

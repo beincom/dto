@@ -5,7 +5,7 @@ import {
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
-  ActivityLogUserDTO
+  ActivityLogUserDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
@@ -61,7 +61,7 @@ export class CreateGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     return {
       userIds: [actorId].filter((id) => id),
       groupIds: [objectId],
-      communityIds: [communityId]
+      communityIds: [communityId],
     };
   }
 
@@ -71,7 +71,7 @@ export class CreateGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     return {
       ...data,
       actor: objectData.users[actorId],
-      group: data.group
+      group: data.group,
     };
   }
 }
