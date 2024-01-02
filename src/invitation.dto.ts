@@ -19,6 +19,7 @@ export class InvitationUserInfo {
   id: string;
   username: string;
   fullname: string;
+  email: string;
   avatar: string;
   isDeactivated: boolean;
 
@@ -26,6 +27,7 @@ export class InvitationUserInfo {
     this.id = data.id;
     this.username = data.username;
     this.fullname = data.fullname;
+    this.email = data.email;
     this.avatar = data.avatar;
     this.isDeactivated = data.isDeactivated;
   }
