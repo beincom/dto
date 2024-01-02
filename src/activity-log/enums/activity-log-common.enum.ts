@@ -28,8 +28,3 @@ export enum SCHEME_SCOPE {
   COMMUNITY = 'COMMUNITY',
   GROUP = 'GROUP',
 }
-
-export enum INVITATION_TARGET {
-  GROUP = 'GROUP',
-  GROUP_SET = 'GROUP_SET',
-}
