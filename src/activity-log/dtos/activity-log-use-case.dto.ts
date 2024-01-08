@@ -3,12 +3,19 @@ import { BADGE_TYPE, SCHEME_SCOPE } from '../enums';
 
 export type RequiredProps<T> = T & { [key: string]: any };
 
+export enum ActivityLogUserStateEnum {
+  ACTIVE = 'ACTIVE',
+  DEACTIVATED = 'DEACTIVATED',
+  DELETED = 'DELETED',
+}
+
 export class ActivityLogUserDTO {
   id: string;
   username: string;
   fullname: string;
   avatar: string;
   isDeactivated: boolean;
+  state?: ActivityLogUserStateEnum;
 
   constructor(object: RequiredProps<ActivityLogUserDTO>) {
     Object.assign(this, {
@@ -17,6 +24,7 @@ export class ActivityLogUserDTO {
       fullname: object.fullname,
       avatar: object.avatar,
       isDeactivated: object.isDeactivated,
+      state: object.state,
     });
   }
 }
