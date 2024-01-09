@@ -34,6 +34,8 @@ export class ActivityLogCommunityDTO {
   groupId: string;
   name: string;
   privacy: string;
+  description?: string;
+  categories?: string[];
 
   constructor(object: RequiredProps<ActivityLogCommunityDTO>) {
     Object.assign(this, {
@@ -41,6 +43,8 @@ export class ActivityLogCommunityDTO {
       groupId: object.groupId,
       name: object.name,
       privacy: object.privacy,
+      description: object.description,
+      categories: object.categories,
     });
   }
 }
@@ -51,6 +55,7 @@ export class ActivityLogGroupDTO {
   name: string;
   level: number;
   privacy: string;
+  description?: string;
 
   constructor(object: RequiredProps<ActivityLogGroupDTO>) {
     Object.assign(this, {
@@ -59,6 +64,7 @@ export class ActivityLogGroupDTO {
       name: object.name,
       level: object.level,
       privacy: object.privacy,
+      description: object.description,
     });
   }
 }

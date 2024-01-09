@@ -10,7 +10,7 @@ import {
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 
 class PayloadDTO extends BasePayloadPropsDTO {
-  group: ActivityLogGroupDTO;
+  group: ActivityLogGroupDTO & { categories?: string[] };
 }
 
 class DataDTO {
