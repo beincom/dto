@@ -129,6 +129,7 @@ export class ActivityLogSchemeDTO {
 
 export class InvitationLogDTO {
   id: string;
+  type: string;
   communityId: string;
   inviterId: string;
   inviteeId: string;
@@ -138,6 +139,7 @@ export class InvitationLogDTO {
   constructor(data: RequiredProps<InvitationLogDTO>) {
     Object.assign(this, {
       id: data.id,
+      type: data.type,
       communityId: data.communityId,
       inviterId: data.inviterId,
       inviteeId: data.inviteeId,
