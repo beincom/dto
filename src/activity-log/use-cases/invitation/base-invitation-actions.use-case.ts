@@ -1,4 +1,4 @@
-import { INVITATION_TARGET } from '../../../invitation.dto';
+import { INVITATION_TARGET, INVITATION_TYPE } from '../../../invitation.dto';
 import { ActivityLogBaseUseCase, BasePayloadPropsDTO } from '../../activity-log-base-use-case.dto';
 import {
   ActivityLogDocumentDTO,
@@ -22,7 +22,7 @@ type DataDTO = {
   actor?: Partial<ActivityLogUserDTO>;
   invitation: InvitationLogDTO;
   inviter?: Partial<ActivityLogUserDTO>;
-  invitee?: Partial<ActivityLogUserDTO>;
+  invitee?: Partial<ActivityLogUserDTO & { email: string }>;
   group: ActivityLogGroupDTO;
   groupSet: ActivityLogGroupSetDTO;
 };
@@ -95,7 +95,10 @@ export class BaseInvitationActionLog extends ActivityLogBaseUseCase<DataDTO> {
       ...bindingTarget,
       actor: objectData.users[actorId],
       inviter: objectData.users[data.invitation.inviterId],
-      invitee: objectData.users[data.invitation.inviteeId],
+      invitee:
+        data.invitation.type === INVITATION_TYPE.EMAIL
+          ? { email: data.invitation.email }
+          : objectData.users[data.invitation.inviteeId],
     };
   }
 }
