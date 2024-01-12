@@ -133,6 +133,7 @@ export class InvitationLogDTO {
   communityId: string;
   inviterId: string;
   inviteeId: string;
+  email: string;
   targetType: INVITATION_TARGET;
   targetId: string;
 
@@ -143,6 +144,7 @@ export class InvitationLogDTO {
       communityId: data.communityId,
       inviterId: data.inviterId,
       inviteeId: data.inviteeId,
+      email: data.email,
       targetType: data.targetType,
       targetId: data.targetId,
     });
