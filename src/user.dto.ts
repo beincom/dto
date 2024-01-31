@@ -51,7 +51,7 @@ export class UserDto {
   relationshipStatus: USER_RELATIONSHIP_STATUS;
   isDeactivated: boolean;
   isVerified: boolean;
-  referralCode: string;
+  referralCode?: string;
 
   latestWork?: LatestWorkExperienceDto;
   showingBadges?: ShowingBadgeDto[];
