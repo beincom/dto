@@ -51,6 +51,10 @@ export class UserDto {
   relationshipStatus: USER_RELATIONSHIP_STATUS;
   isDeactivated: boolean;
   isVerified: boolean;
+
+  /**
+   * @warning This field is not optional. Must be a required field in the next major release.
+   */
   referralCode?: string;
 
   latestWork?: LatestWorkExperienceDto;
