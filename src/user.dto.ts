@@ -1,5 +1,6 @@
 import {
   INTEREST,
+  USER_DIRECT_MESSAGE_PRIVACY,
   USER_GENDER,
   USER_INVITATION_PRIVACY,
   USER_RELATIONSHIP_STATUS,
@@ -86,6 +87,7 @@ export interface SharedUserDto {
 export class UserSettingDto {
   visibilityPrivacy: USER_VISIBILITY_PRIVACY;
   invitationPrivacy: USER_INVITATION_PRIVACY;
+  directMessagePrivacy: USER_DIRECT_MESSAGE_PRIVACY;
 }
 
 export class UserPublicInfoDto {
