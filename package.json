@@ -1,6 +1,6 @@
 {
   "name": "@beincom/dto",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Share dto for all projects of Beincom",
   "main": "./dist/index.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@beincom/constants": "^3.3.0",
+    "@beincom/constants": "^4.2.0",
     "@beincom/domain": "^0.1.7",
     "lodash": "^4.17.21"
   }
