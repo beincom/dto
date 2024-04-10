@@ -54,9 +54,10 @@ export class UserDto {
   isVerified: boolean;
 
   /**
-   * @warning This field is not optional. Must be a required field in the next major release.
+   * @warning These fields are not optional. Must be a required field in the next major release.
    */
   referralCode?: string;
+  primaryId?: string;
 
   latestWork?: LatestWorkExperienceDto;
   showingBadges?: ShowingBadgeDto[];
