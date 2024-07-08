@@ -57,6 +57,7 @@ export class UserDto {
    * @warning These fields are not optional. Must be a required field in the next major release.
    */
   referralCode?: string;
+  referredBy?: string;
   primaryId?: string;
 
   latestWork?: LatestWorkExperienceDto;
