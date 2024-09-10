@@ -18,8 +18,8 @@ export class SharedUserCacheKey {
   public static userSettingsOfUser(userId: string): string {
     return [SharedUserCacheKey.PREFIX, CACHE_KEYS.USER_SETTING, userId].join(':');
   }
-
-  public static latestWorkExperienceOfUser(userId: string): string {
-    return [SharedUserCacheKey.PREFIX, CACHE_KEYS.LATEST_WORK_EXPERIENCE, userId].join(':');
+  
+  public static userOwnershipNftLinked(userId: string): string {
+    return [SharedUserCacheKey.PREFIX, CACHE_KEYS.USER_OWNERSHIP_NFT_LINKED, userId].join(':');
   }
 }
