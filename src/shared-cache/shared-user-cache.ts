@@ -24,4 +24,12 @@ export class SharedUserCacheKey {
       ':',
     );
   }
+
+  public static getTokenValidationHashKey(username: string): string {
+    return [
+      SharedUserCacheKey.PREFIX,
+      CACHE_KEYS.TOKEN_VALIDATION.HASH,
+      username,
+    ].join(':');
+  }
 }
