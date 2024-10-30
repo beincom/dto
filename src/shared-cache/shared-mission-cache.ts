@@ -18,4 +18,12 @@ export class SharedMissionCacheKey {
   public static getJackpotSegments(): string {
     return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_SEGMENTS].join(':');
   }
+
+  public static getJackpotActivities(): string {
+    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_ACTIVITIES].join(':');
+  }
+
+  public static getRateLimiter(): string {
+    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.RATE_LIMIT].join(':');
+  }
 }
