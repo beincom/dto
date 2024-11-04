@@ -26,4 +26,12 @@ export class SharedMissionCacheKey {
   public static getRateLimiter(): string {
     return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.RATE_LIMIT].join(':');
   }
+
+  public static getJackpotNRU(): string {
+    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_NRU].join(':');
+  }
+
+  public static getJackpotRef(): string {
+    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_REF].join(':');
+  }
 }
