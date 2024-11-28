@@ -151,6 +151,18 @@ export class InvitationLogDTO {
   }
 }
 
+export class ActivityLogBannedCommunityMemberDTO {
+  communityId: string;
+  userId: string;
+
+  constructor(object: RequiredProps<ActivityLogBannedCommunityMemberDTO>) {
+    Object.assign(this, {
+      communityId: object.communityId,
+      userId: object.userId
+    });
+  }
+}
+
 export interface ChangeBaseDTO<T> {
   old: T;
   new: T;
