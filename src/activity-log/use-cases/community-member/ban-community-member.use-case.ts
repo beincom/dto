@@ -13,8 +13,8 @@ class DataDTO {
 }
 
 export class BanCommunityMemberLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.BAN_MEMBER;
-  static readonly eventType = ACTIVITY_EVENT_TYPES.CREATE;
+  static readonly useCase: ACTIVITY_LOG_USE_CASES.BAN_MEMBER | ACTIVITY_LOG_USE_CASES.UNBAN_MEMBER = ACTIVITY_LOG_USE_CASES.BAN_MEMBER;
+  static readonly eventType = ACTIVITY_EVENT_TYPES.UPDATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 
   public static toPayload(data: PayloadDTO): ActivityLogPayloadDTO<PayloadDTO> {

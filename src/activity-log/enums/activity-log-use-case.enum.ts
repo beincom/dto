@@ -13,6 +13,7 @@ export enum ACTIVITY_LOG_USE_CASES {
   LEAVE_GROUP = 'leave.group',
   REMOVE_MEMBER = 'remove.member',
   BAN_MEMBER = 'ban.member',
+  UNBAN_MEMBER  = 'unban.member',
   APPROVE_JOIN_REQUEST = 'approve.join_request',
   DECLINE_JOIN_REQUEST = 'decline.join_request',
 
