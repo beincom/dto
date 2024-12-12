@@ -2,36 +2,37 @@ import { CACHE_KEYS } from '@beincom/constants';
 
 export class SharedMissionCacheKey {
   private static PREFIX = 'mission';
+  private static hashTag = '{1}';
 
   public static getJackpotAchieved(): string {
-    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_ACHIEVED].join(':');
+    return [this.PREFIX, this.hashTag, CACHE_KEYS.MISSION.JACKPOT_ACHIEVED].join(':');
   }
 
   public static getJackpotMedalConversionRate(): string {
     return [
-      SharedMissionCacheKey.PREFIX,
-      `{1}`,
+      this.PREFIX,
+      this.hashTag,
       CACHE_KEYS.MISSION.JACKPOT_MEDAL_CONVERSION_RATE,
     ].join(':');
   }
 
   public static getJackpotSegments(): string {
-    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_SEGMENTS].join(':');
+    return [this.PREFIX, this.hashTag, CACHE_KEYS.MISSION.JACKPOT_SEGMENTS].join(':');
   }
 
   public static getJackpotActivities(): string {
-    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_ACTIVITIES].join(':');
+    return [this.PREFIX, this.hashTag, CACHE_KEYS.MISSION.JACKPOT_ACTIVITIES].join(':');
   }
 
   public static getRateLimiter(): string {
-    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.RATE_LIMIT].join(':');
+    return [this.PREFIX, this.hashTag, CACHE_KEYS.MISSION.RATE_LIMIT].join(':');
   }
 
   public static getJackpotNRU(): string {
-    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_NRU].join(':');
+    return [this.PREFIX, this.hashTag, CACHE_KEYS.MISSION.JACKPOT_NRU].join(':');
   }
 
   public static getJackpotRef(): string {
-    return [SharedMissionCacheKey.PREFIX, `{1}`, CACHE_KEYS.MISSION.JACKPOT_REF].join(':');
+    return [this.PREFIX, this.hashTag, CACHE_KEYS.MISSION.JACKPOT_REF].join(':');
   }
 }

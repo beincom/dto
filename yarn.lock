@@ -34,10 +34,10 @@
     uuid "^9.0.0"
     validator "^13.7.0"
 
-"@beincom/constants@^5.6.3":
-  version "5.6.3"
-  resolved "https://registry.yarnpkg.com/@beincom/constants/-/constants-5.6.3.tgz#0eef456e30f18747c1e3c86af4cb9bb6f52de2ca"
-  integrity sha512-nSndLJghXFjwOyP3jThgVqDNl6zrR2BiHBIW5sptEeBn1ozpkKluVmESo58W6Z/+t91lElFWwvEAhpmcYCkc8Q==
+"@beincom/constants@^5.10.0":
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/@beincom/constants/-/constants-5.10.0.tgz#dd147c06cc5e5a7bcb84cd3e31c61ed024188db3"
+  integrity sha512-8W7O+HFGS9VYwBuHSK4IlLJ+8u8lnR2JBfSepjH7QNkFxOF7tIqlf2f3uVVHSzr5WqwZGmcMiP80eH7yU5vASA==
 
 "@beincom/domain@^0.1.7":
   version "0.1.7"
