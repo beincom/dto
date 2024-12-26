@@ -32,7 +32,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@beincom/constants": "^5.10.0",
+    "@beincom/constants": "^5.11.1",
     "@beincom/domain": "^0.1.7",
     "lodash": "^4.17.21"
   }
