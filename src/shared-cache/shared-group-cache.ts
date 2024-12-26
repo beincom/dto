@@ -23,4 +23,8 @@ export class SharedGroupCacheKey {
   public static showingBadgeOfUser(userId: string): string {
     return [this.PREFIX, this.hashTag, CACHE_KEYS.SHOWING_BADGES, userId].join(':');
   }
+
+  public static bannedTargetsOfUser(userId: string): string {
+    return [this.PREFIX, this.hashTag, CACHE_KEYS.BANNED_TARGETS_OF_USER, userId].join(':');
+  }
 }
