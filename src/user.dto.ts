@@ -53,8 +53,14 @@ export class UserDto {
   relationshipStatus: USER_RELATIONSHIP_STATUS;
   isDeactivated: boolean;
   isVerified: boolean;
-  isPhoneVerified: boolean;
-  isProfsCreator: boolean;
+  /**
+   * @note this field is required in the next major release.
+   */
+  isPhoneVerified?: boolean;
+  /**
+   * @note this field is required in the next major release.
+   */
+  isProfsCreator?: boolean;
 
   /**
    * @warning These fields are not optional. Must be a required field in the next major release.
