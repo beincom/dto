@@ -54,4 +54,13 @@ export class SharedGroupCacheKey {
       userId,
     ].join(':');
   }
+
+  public static seenStatusOfUserForNewInvitations(userId: string): string {
+    return [
+      SharedGroupCacheKey.PREFIX,
+      SharedGroupCacheKey.hashTag,
+      CACHE_KEYS.SEEN_STATUS_OF_USER_FOR_NEW_INVITATIONS,
+      userId,
+    ].join(':');
+  }
 }
