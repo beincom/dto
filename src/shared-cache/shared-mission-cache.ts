@@ -1,5 +1,8 @@
 import { CACHE_KEYS } from '@beincom/constants';
 
+/**
+ * @deprecated Move to @beincom/constants@5.18.1
+ */
 export class SharedMissionCacheKey {
   private static PREFIX = 'mission';
   private static hashTag = '{1}';
