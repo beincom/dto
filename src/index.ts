@@ -4,3 +4,4 @@ export * from './user-id.value-object';
 export * from './user.dto';
 export * from './group.dto';
 export * from './shared-cache';
+export * from './subscription.dto'
