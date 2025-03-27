@@ -163,6 +163,20 @@ export class ActivityLogBannedCommunityMemberDTO {
   }
 }
 
+export class ActivityLogAutoJoinGroupSetDTO {
+  communityId: string;
+  groupSetId: string;
+  userId:  string;
+  
+  constructor(object: RequiredProps<ActivityLogAutoJoinGroupSetDTO>) {
+    Object.assign(this, {
+      communityId: object.communityId,
+      groupSetId: object.groupSetId,
+      userId: object.userId,
+    });
+  }
+}
+
 export interface ChangeBaseDTO<T> {
   old: T;
   new: T;
