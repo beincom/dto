@@ -13,7 +13,7 @@ class DataDTO {
 }
 
 export class AutoJoinGroupSetLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase: ACTIVITY_LOG_USE_CASES.AUTO_JOIN_GROUP_SET;
+  static readonly useCase = ACTIVITY_LOG_USE_CASES.AUTO_JOIN_GROUP_SET;
   static readonly eventType = ACTIVITY_EVENT_TYPES.CREATE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.MEMBER;
 
