@@ -30,6 +30,7 @@ export enum ACTIVITY_LOG_USE_CASES {
   UPDATE_GROUP_SET = 'update.group_set',
   MAKE_DEFAULT_GROUP_SET = 'make_default.group_set',
   REMOVE_DEFAULT_GROUP_SET = 'remove_default.group_set',
+  AUTO_JOIN_GROUP_SET = 'auto_join.group_set',
 
   /** Group terms **/
   CREATE_TERMS = 'create.group.terms',
