@@ -25,7 +25,7 @@ type PayloadDTO = BasePayloadPropsDTO &
     'actor' | 'group' | 'originalState' | 'currentState'
   >;
 
-type DataDTO = Pick<BaseDataDTO<ActivityLogGroupDTO>, 'actor' | 'group'> & {
+type DataDTO = Pick<BaseDataDTO<ActivityLogGroupDTO>, 'actor' | 'group' | 'object'> & {
   changes: {
     archivedStatus?: ChangeBaseDTO<ArchiveUnArchiveGroupState['archivedStatus']>;
   };
@@ -64,6 +64,7 @@ export class ArchiveUnarchiveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
       data: {
         actor,
         group,
+        object: group,
         changes: GetPropsChanged(originalState, currentState),
       },
     };
