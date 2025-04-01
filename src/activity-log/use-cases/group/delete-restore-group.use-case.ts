@@ -25,7 +25,7 @@ type PayloadDTO = BasePayloadPropsDTO &
     'actor' | 'group' | 'originalState' | 'currentState'
   >;
 
-type DataDTO = Pick<BaseDataDTO<ActivityLogGroupDTO>, 'actor' | 'group' | 'object'> & {
+type DataDTO = Pick<BaseDataDTO<ActivityLogGroupDTO>, 'actor' | 'group'> & {
   changes: {
     deletedStatus?: ChangeBaseDTO<DeleteRestoreGroupState['deletedStatus']>;
   };
@@ -64,7 +64,6 @@ export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
       data: {
         actor,
         group,
-        object: group,
         changes: GetPropsChanged(originalState, currentState),
       },
     };
