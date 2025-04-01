@@ -15,25 +15,25 @@ import {
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
 import { GetPropsChanged } from '../../helpers';
 
-export type ArchiveUnArchiveGroupState = {
-  archivedStatus: boolean;
+export type DeleteRestoreGroupState = {
+  deletedStatus: boolean;
 };
 
 type PayloadDTO = BasePayloadPropsDTO &
   Pick<
-    BasePayloadDTO<ArchiveUnArchiveGroupState>,
+    BasePayloadDTO<DeleteRestoreGroupState>,
     'actor' | 'group' | 'originalState' | 'currentState'
   >;
 
 type DataDTO = Pick<BaseDataDTO<ActivityLogGroupDTO>, 'actor' | 'group' | 'object'> & {
   changes: {
-    archivedStatus?: ChangeBaseDTO<ArchiveUnArchiveGroupState['archivedStatus']>;
+    deletedStatus?: ChangeBaseDTO<DeleteRestoreGroupState['deletedStatus']>;
   };
 };
 
-export class ArchiveUnarchiveGroupLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.ARCHIVE_UNARCHIVE_GROUP;
-  static readonly eventType = ACTIVITY_EVENT_TYPES.UPDATE;
+export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
+  static readonly useCase = ACTIVITY_LOG_USE_CASES.DELETE_RESTORE_GROUP;
+  static readonly eventType = ACTIVITY_EVENT_TYPES.DELETE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.GROUP;
 
   public static toPayload(data: PayloadDTO): ActivityLogPayloadDTO<PayloadDTO> {
