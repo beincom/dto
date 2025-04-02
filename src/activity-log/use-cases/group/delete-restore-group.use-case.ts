@@ -10,26 +10,17 @@ import {
   ActivityLogObjectDataDTO,
   ActivityLogObjectIdDTO,
   ActivityLogPayloadDTO,
-  ChangeBaseDTO,
+  ActivityLogUserDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
-import { GetPropsChanged } from '../../helpers';
-
 export type DeleteRestoreGroupState = {
-  deletedStatus: boolean;
+  group: ActivityLogGroupDTO;
+  isDeleted: boolean;
 };
 
-type PayloadDTO = BasePayloadPropsDTO &
-  Pick<
-    BasePayloadDTO<DeleteRestoreGroupState>,
-    'actor' | 'group' | 'originalState' | 'currentState'
-  >;
+type PayloadDTO = BasePayloadPropsDTO & DeleteRestoreGroupState;
 
-type DataDTO = Pick<BaseDataDTO<ActivityLogGroupDTO>, 'actor' | 'group'> & {
-  changes: {
-    deletedStatus?: ChangeBaseDTO<DeleteRestoreGroupState['deletedStatus']>;
-  };
-};
+type DataDTO = {actor: ActivityLogUserDTO} & DeleteRestoreGroupState;
 
 export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
   static readonly useCase = ACTIVITY_LOG_USE_CASES.DELETE_RESTORE_GROUP;
@@ -48,7 +39,7 @@ export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     eventTime,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { id, mainId, actor, group, originalState, currentState } = data;
+    const { id, mainId, actor, group, isDeleted } = data;
 
     return {
       id,
@@ -64,7 +55,7 @@ export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
       data: {
         actor,
         group,
-        changes: GetPropsChanged(originalState, currentState),
+        isDeleted
       },
     };
   }
