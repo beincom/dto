@@ -1,7 +1,5 @@
 import {
   ActivityLogBaseUseCase,
-  BaseDataDTO,
-  BasePayloadDTO,
   BasePayloadPropsDTO,
 } from '../../activity-log-base-use-case.dto';
 import {
@@ -13,9 +11,16 @@ import {
   ActivityLogUserDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
+
+export enum DeletedState {
+  DELETED = 'deleted',
+  RESTORED = 'restored',
+  TEMPORARY_DELETED = 'temporary-deleted',
+}
+
 export type DeleteRestoreGroupState = {
   group: ActivityLogGroupDTO;
-  isDeleted: boolean;
+  state: DeletedState;
 };
 
 type PayloadDTO = BasePayloadPropsDTO & DeleteRestoreGroupState;
@@ -39,7 +44,7 @@ export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     eventTime,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { id, mainId, actor, group, isDeleted } = data;
+    const { id, mainId, actor, group, state } = data;
 
     return {
       id,
@@ -55,7 +60,7 @@ export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
       data: {
         actor,
         group,
-        isDeleted
+        state
       },
     };
   }
