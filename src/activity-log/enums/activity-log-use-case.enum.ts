@@ -22,7 +22,8 @@ export enum ACTIVITY_LOG_USE_CASES {
   UPDATE_GROUP_PROFILE = 'update.group.profile',
   UPDATE_GROUP_SETTINGS = 'update.group.settings',
   ARCHIVE_UNARCHIVE_GROUP = 'archive-unarchive.group',
-  DELETE_RESTORE_GROUP = 'delete-restore.group',
+  DELETE_GROUP = 'delete.group',
+  RECOVER_GROUP = 'recover.group',
   MOVE_GROUP = 'move.group',
 
   /** Group set **/

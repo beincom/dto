@@ -1,7 +1,5 @@
 import {
   ActivityLogBaseUseCase,
-  BaseDataDTO,
-  BasePayloadDTO,
   BasePayloadPropsDTO,
 } from '../../activity-log-base-use-case.dto';
 import {
@@ -13,18 +11,28 @@ import {
   ActivityLogUserDTO,
 } from '../../dtos';
 import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
-export type DeleteRestoreGroupState = {
+
+export enum DeletedState {
+  DELETED = 'deleted',
+  RESTORED = 'recoverd',
+  TEMPORARY_DELETED = 'temporary-deleted',
+}
+
+export type DeleteRecoverGroupState = {
   group: ActivityLogGroupDTO;
-  isDeleted: boolean;
+  state: DeletedState;
 };
 
-type PayloadDTO = BasePayloadPropsDTO & DeleteRestoreGroupState;
+type PayloadDTO = BasePayloadPropsDTO & DeleteRecoverGroupState;
 
-type DataDTO = {actor: ActivityLogUserDTO} & DeleteRestoreGroupState;
+type DataDTO = {actor: ActivityLogUserDTO} & DeleteRecoverGroupState;
 
-export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
-  static readonly useCase = ACTIVITY_LOG_USE_CASES.DELETE_RESTORE_GROUP;
-  static readonly eventType = ACTIVITY_EVENT_TYPES.DELETE;
+class DeleteRecoverGroupLog extends ActivityLogBaseUseCase<DataDTO> {
+  static readonly useCase: 
+    | ACTIVITY_LOG_USE_CASES.DELETE_GROUP
+    | ACTIVITY_LOG_USE_CASES.RECOVER_GROUP
+     = ACTIVITY_LOG_USE_CASES.DELETE_GROUP;
+  static readonly eventType: ACTIVITY_EVENT_TYPES.DELETE | ACTIVITY_EVENT_TYPES.UPDATE = ACTIVITY_EVENT_TYPES.DELETE;
   static readonly objectType = ACTIVITY_OBJECT_TYPES.GROUP;
 
   public static toPayload(data: PayloadDTO): ActivityLogPayloadDTO<PayloadDTO> {
@@ -39,7 +47,7 @@ export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     eventTime,
     data,
   }: ActivityLogPayloadDTO<PayloadDTO>): ActivityLogDocumentDTO<DataDTO> {
-    const { id, mainId, actor, group, isDeleted } = data;
+    const { id, mainId, actor, group, state } = data;
 
     return {
       id,
@@ -55,7 +63,7 @@ export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
       data: {
         actor,
         group,
-        isDeleted
+        state
       },
     };
   }
@@ -77,3 +85,16 @@ export class DeleteRestoreGroupLog extends ActivityLogBaseUseCase<DataDTO> {
     };
   }
 }
+
+export class DeleteGroupLog extends DeleteRecoverGroupLog {
+  static readonly useCase = ACTIVITY_LOG_USE_CASES.DELETE_GROUP;
+  static readonly eventType = ACTIVITY_EVENT_TYPES.DELETE;
+  static readonly objectType = ACTIVITY_OBJECT_TYPES.GROUP;
+}
+
+export class RecoverGroupLog extends DeleteRecoverGroupLog {
+  static readonly useCase = ACTIVITY_LOG_USE_CASES.RECOVER_GROUP;
+  static readonly eventType = ACTIVITY_EVENT_TYPES.UPDATE;
+  static readonly objectType = ACTIVITY_OBJECT_TYPES.GROUP;
+}
+
