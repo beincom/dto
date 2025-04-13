@@ -65,4 +65,8 @@ export enum ACTIVITY_LOG_USE_CASES {
   CANCEL_INVITATION = 'cancel.invitation',
   ACCEPT_INVITATION = 'accept.invitation',
   DECLINE_INVITATION = 'decline.invitation',
+
+  /** Community **/
+  DELETE_COMMUNITY = 'delete.community',
+  RECOVER_COMMUNITY = 'recover.community',
 }
