@@ -11,16 +11,20 @@ import {
     ActivityLogUserDTO,
   } from '../../dtos';
   import { ACTIVITY_EVENT_TYPES, ACTIVITY_LOG_USE_CASES, ACTIVITY_OBJECT_TYPES } from '../../enums';
-import { DeletedState } from '../group';
   
-  export type DeleteRecoverCommunityState = {
+export enum DeletedCommunityState {
+  RESTORED = 'recoverd',
+  TEMPORARY_DELETED = 'temporary-deleted',
+}
+
+  export type DeleteRecoverCommunityPayload = {
     community: ActivityLogCommunityDTO;
-    state: DeletedState;
+    state: DeletedCommunityState;
   };
   
-  type PayloadDTO = BasePayloadPropsDTO & DeleteRecoverCommunityState;
+  type PayloadDTO = BasePayloadPropsDTO & DeleteRecoverCommunityPayload;
   
-  type DataDTO = {actor: ActivityLogUserDTO} & DeleteRecoverCommunityState;
+  type DataDTO = {actor: ActivityLogUserDTO} & DeleteRecoverCommunityPayload;
   
   class DeleteRecoverCommunityLog extends ActivityLogBaseUseCase<DataDTO> {
     static readonly useCase: 
