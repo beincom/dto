@@ -110,7 +110,7 @@ export class UserSettingDto {
   /**
    * @note this field is required in the next major release.
    */
-  showYourContent?: boolean;
+  showContent?: boolean;
 }
 
 export class UserPublicInfoDto {
