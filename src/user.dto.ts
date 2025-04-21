@@ -99,6 +99,18 @@ export class UserSettingDto {
   invitationPrivacy: USER_INVITATION_PRIVACY;
   directMessagePrivacy?: USER_DIRECT_MESSAGE_PRIVACY;
   language: LANGUAGE;
+  /**
+   * @note this field is required in the next major release.
+   */
+  showOwnedCommunities?: boolean;
+  /**
+   * @note this field is required in the next major release.
+   */
+  showJoinedCommunities?: boolean;
+  /**
+   * @note this field is required in the next major release.
+   */
+  showYourContent?: boolean;
 }
 
 export class UserPublicInfoDto {
