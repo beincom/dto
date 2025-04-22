@@ -6,7 +6,6 @@ import {
   USER_INVITATION_PRIVACY,
   USER_RELATIONSHIP_STATUS,
   USER_STAFF_ROLE,
-  USER_VISIBILITY_PRIVACY,
 } from '@beincom/constants';
 
 class CommunityInfo {
@@ -53,28 +52,14 @@ export class UserDto {
   relationshipStatus: USER_RELATIONSHIP_STATUS;
   isDeactivated: boolean;
   isVerified: boolean;
-  /**
-   * @note this field is required in the next major release.
-   */
-  isPhoneVerified?: boolean;
-  /**
-   * @note this field is required in the next major release.
-   */
-  isProfsCreator?: boolean;
-
-  /**
-   * @warning These fields are not optional. Must be a required field in the next major release.
-   */
-  referralCode?: string;
+  isPhoneVerified: boolean;
+  isProfsCreator: boolean;
+  referralCode: string;
   primaryId?: string;
-
   latestWork?: LatestWorkExperienceDto;
   showingBadges?: ShowingBadgeDto[];
-
   shouldCreatePwd?: boolean;
-
-  interests?: INTEREST[];
-
+  interests: INTEREST[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
@@ -95,22 +80,16 @@ export interface SharedUserDto {
 }
 
 export class UserSettingDto {
-  visibilityPrivacy: USER_VISIBILITY_PRIVACY;
+  userId: string;
   invitationPrivacy: USER_INVITATION_PRIVACY;
-  directMessagePrivacy?: USER_DIRECT_MESSAGE_PRIVACY;
+  directMessagePrivacy: USER_DIRECT_MESSAGE_PRIVACY;
   language: LANGUAGE;
-  /**
-   * @note this field is required in the next major release.
-   */
-  showOwnedCommunities?: boolean;
-  /**
-   * @note this field is required in the next major release.
-   */
-  showJoinedCommunities?: boolean;
-  /**
-   * @note this field is required in the next major release.
-   */
-  showContent?: boolean;
+  showOwnedCommunities: boolean;
+  showJoinedCommunities: boolean;
+  showContent: boolean;
+  showPersonalInfo: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class UserPublicInfoDto {
