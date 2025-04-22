@@ -9,3 +9,4 @@
 /.coveralls.yml
 *.tsbuildinfo
 .DS_Store
+.cursor
