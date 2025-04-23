@@ -9,6 +9,8 @@ import {
   USER_VISIBILITY_PRIVACY,
 } from '@beincom/constants';
 
+import { BindedUserSubscriptionDto } from './subscription.dto';
+
 class CommunityInfo {
   id: string;
   name: string;
@@ -74,7 +76,7 @@ export class UserDto {
   shouldCreatePwd?: boolean;
 
   interests?: INTEREST[];
-
+  subscriptions?: BindedUserSubscriptionDto[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
