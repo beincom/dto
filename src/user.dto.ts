@@ -8,6 +8,8 @@ import {
   USER_STAFF_ROLE,
 } from '@beincom/constants';
 
+import { BindedUserSubscriptionDto } from './subscription.dto';
+
 class CommunityInfo {
   id: string;
   name: string;
@@ -32,12 +34,12 @@ export class LatestWorkExperienceDto {
 
 export class UserDto {
   id: string;
+  primaryId?: string;
   username: string;
   fullname: string;
   email: string;
   avatar: string;
   chatId: string;
-
   beinStaffRole: USER_STAFF_ROLE;
   countryCode: string;
   country: string;
@@ -55,11 +57,11 @@ export class UserDto {
   isPhoneVerified: boolean;
   isProfsCreator: boolean;
   referralCode: string;
-  primaryId?: string;
+  interests: INTEREST[];
   latestWork?: LatestWorkExperienceDto;
   showingBadges?: ShowingBadgeDto[];
   shouldCreatePwd?: boolean;
-  interests: INTEREST[];
+  subscriptions?: BindedUserSubscriptionDto[];
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
