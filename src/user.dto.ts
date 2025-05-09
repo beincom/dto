@@ -62,6 +62,7 @@ export class UserDto {
   showingBadges?: ShowingBadgeDto[];
   shouldCreatePwd?: boolean;
   subscriptions?: BindedUserSubscriptionDto[];
+  isPrimary?: boolean;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
