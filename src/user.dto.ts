@@ -69,7 +69,7 @@ export class UserDto {
    */
   referralCode?: string;
   primaryId?: string;
-
+  isPrimary?: boolean;
   latestWork?: LatestWorkExperienceDto;
   showingBadges?: ShowingBadgeDto[];
 
