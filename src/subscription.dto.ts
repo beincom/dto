@@ -25,7 +25,6 @@ export enum PREMIUM_PACKAGE_TERM {
 
 export class BindedUserSubscriptionDto {
   id: string;
-  userId: string;
   packageId: string;
   packageKey: string;
   type: PREMIUM_PACKAGE_TYPE;
