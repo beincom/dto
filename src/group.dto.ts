@@ -18,4 +18,5 @@ export interface SharedGroupDto {
   isCommunity?: boolean;
   rootGroupId: string;
   isLinkedNft: boolean;
+  categories?: string[];
 }
