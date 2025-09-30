@@ -1,4 +1,5 @@
 import {
+  COUNTRY_CODE,
   INTEREST,
   LANGUAGE,
   USER_DIRECT_MESSAGE_PRIVACY,
@@ -58,6 +59,7 @@ export class UserDto {
   isProfsCreator: boolean;
   referralCode: string;
   interests: INTEREST[];
+  nationality?: COUNTRY_CODE;
   latestWork?: LatestWorkExperienceDto;
   showingBadges?: ShowingBadgeDto[];
   shouldCreatePwd?: boolean;
