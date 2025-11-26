@@ -38,7 +38,7 @@ export class UserDto {
   primaryId?: string;
   username: string;
   fullname: string;
-  email: string;
+  email?: string;
   avatar: string;
   chatId: string;
   beinStaffRole: USER_STAFF_ROLE;
@@ -51,7 +51,7 @@ export class UserDto {
   description: string;
   gender: USER_GENDER;
   language: string[];
-  phone: string;
+  phone?: string;
   relationshipStatus: USER_RELATIONSHIP_STATUS;
   isDeactivated: boolean;
   isVerified: boolean;
